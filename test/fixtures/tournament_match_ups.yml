@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+the_real_usc_vs_duke:
+  game: 36
+  top_tournament_team: the_real_usc
+  bottom_tournament_team: duke
+  top_team_score: 88
+  bottom_team_score: 81
+
+the_real_usc_vs_baylor:
+  game: 50
+  top_tournament_team: baylor_tournament_team
+  bottom_tournament_team: the_real_usc_tournament_team
+  top_team_score:
+  bottom_team_score:

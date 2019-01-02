@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+
+the_real_usc:
+  name: University of South Carolina
+  city: Columbia
+  state: SC
+
+duke:
+  name: Duke
+  city: Durham
+  state: NC
+
+baylor:
+  name: Baylor University
+  city: Waco
+  state: TX

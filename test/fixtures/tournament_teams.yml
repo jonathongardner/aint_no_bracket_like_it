@@ -1,0 +1,16 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+the_real_usc_tournament_team:
+  team: the_real_usc
+  year: 2017
+  rank: 7
+
+duke_tournament_team:
+  team: duke
+  year: 2017
+  rank: 2
+
+baylor_tournament_team:
+  team: baylor
+  year: 2017
+  rank: 3
