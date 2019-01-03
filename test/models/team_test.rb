@@ -9,7 +9,7 @@ class TeamTest < ActiveSupport::TestCase
     assert_number_of_errors 3, new_team
   end
   test "should not create team without unique name" do
-    new_team = Team.new(name: teams(:duke).name, city: 'somewhere', state: 'CA')
+    new_team = Team.new(name: teams(:duke_blue_devils_team).name, city: 'somewhere', state: 'California')
     assert_not new_team.save, 'Saved new team without unique name'
     assert_error_message "has already been taken", new_team, :name
     assert_number_of_errors 1, new_team
@@ -17,11 +17,11 @@ class TeamTest < ActiveSupport::TestCase
   test "should not create team without state code in list" do
     new_team = Team.new(name: 'SomeName', city: 'somewhere', state: 'NW')
     assert_not new_team.save, 'Saved new team without state code in list'
-    assert_error_message "must be a valid state code", new_team, :state
+    assert_error_message "must be a valid state", new_team, :state
     assert_number_of_errors 1, new_team
   end
   test "should create team" do
-    new_team = Team.new(name: 'SomeName', city: 'somewhere', state: 'NC')
+    new_team = Team.new(name: 'SomeName', city: 'somewhere', state: 'North Carolina')
     assert new_team.save, 'Did not save new team with correct info'
   end
 end

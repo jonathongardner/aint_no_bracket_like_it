@@ -23,3 +23,6 @@
 /config/master.key
 /config/database.yml
 /config/local_env.yml
+
+/db/fixtures/*
+!/db/fixtures/.keep

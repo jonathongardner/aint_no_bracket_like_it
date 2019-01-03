@@ -1,17 +1,256 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-
-the_real_usc:
-  name: University of South Carolina
-  city: Columbia
-  state: SC
-
-duke:
-  name: Duke
-  city: Durham
-  state: NC
-
-baylor:
-  name: Baylor University
+arizona_wildcats_team:
+  name: Arizona Wildcats
+  city: Tucson
+  state: Arizona
+arkansas_razorbacks_team:
+  name: Arkansas Razorbacks
+  city: Fayetteville
+  state: Arkansas
+baylor_bears_team:
+  name: Baylor Bears
   city: Waco
-  state: TX
+  state: Texas
+bucknell_bison_team:
+  name: Bucknell Bison
+  city: Lewisburg
+  state: Pennsylvania
+butler_bulldogs_team:
+  name: Butler Bulldogs
+  city: Indianapolis
+  state: Indiana
+cincinnati_bearcats_team:
+  name: Cincinnati Bearcats
+  city: Cincinnati
+  state: Ohio
+creighton_bluejays_team:
+  name: Creighton Bluejays
+  city: Omaha
+  state: Nebraska
+dayton_flyers_team:
+  name: Dayton Flyers
+  city: Dayton
+  state: Ohio
+duke_blue_devils_team:
+  name: Duke Blue Devils
+  city: Durham
+  state: North Carolina
+east_tennessee_state_buccaneers_team:
+  name: East Tennessee State Buccaneers
+  city: Johnson City
+  state: Tennessee
+florida_gators_team:
+  name: Florida Gators
+  city: Gainesville
+  state: Florida
+florida_gulf_coast_eagles_team:
+  name: Florida Gulf Coast Eagles
+  city: Fort Myers
+  state: Florida
+florida_state_seminoles_team:
+  name: Florida State Seminoles
+  city: Tallahassee
+  state: Florida
+gonzaga_bulldogs_team:
+  name: Gonzaga Bulldogs
+  city: Spokane
+  state: Washington
+iona_gaels_team:
+  name: Iona Gaels
+  city: New Rochelle
+  state: New York
+iowa_state_cyclones_team:
+  name: Iowa State Cyclones
+  city: Ames
+  state: Iowa
+jacksonville_state_gamecocks_team:
+  name: Jacksonville State Gamecocks
+  city: Jacksonville
+  state: Alabama
+kansas_jayhawks_team:
+  name: Kansas Jayhawks
+  city: Lawrence
+  state: Kansas
+kansas_state_wildcats_team:
+  name: Kansas State Wildcats
+  city: Manhattan
+  state: Kansas
+kent_state_golden_flashes_team:
+  name: Kent State Golden Flashes
+  city: Kent
+  state: Ohio
+kentucky_wildcats_team:
+  name: Kentucky Wildcats
+  city: Lexington
+  state: Kentucky
+louisville_cardinals_team:
+  name: Louisville Cardinals
+  city: Louisville
+  state: Kentucky
+marquette_golden_eagles_team:
+  name: Marquette Golden Eagles
+  city: Milwaukee
+  state: Wisconsin
+maryland_terrapins_team:
+  name: Maryland Terrapins
+  city: College Park
+  state: Maryland
+miami(fl)hurricanes_team:
+  name: Miami (FL) Hurricanes
+  city: Coral Gables
+  state: Florida
+michigan_state_spartans_team:
+  name: Michigan State Spartans
+  city: East Lansing
+  state: Michigan
+michigan_wolverines_team:
+  name: Michigan Wolverines
+  city: Ann Arbor
+  state: Michigan
+middle_tennessee_blue_raiders_team:
+  name: Middle Tennessee Blue Raiders
+  city: Murfreesboro
+  state: Tennessee
+minnesota_golden_gophers_team:
+  name: Minnesota Golden Gophers
+  city: Minneapolis
+  state: Minnesota
+mount_st.mary's_mountaineers_team:
+  name: Mount St. Mary's Mountaineers
+  city: Emmitsburg
+  state: Maryland
+nevada_wolf_pack_team:
+  name: Nevada Wolf Pack
+  city: Reno
+  state: Nevada
+new_mexico_state_aggies_team:
+  name: New Mexico State Aggies
+  city: Las Cruces
+  state: New Mexico
+north_carolina_tar_heels_team:
+  name: North Carolina Tar Heels
+  city: Chapel Hill
+  state: North Carolina
+north_carolina_wilmington_seahawks_team:
+  name: North Carolina-Wilmington Seahawks
+  city: Wilmington
+  state: North Carolina
+north_dakota_fighting_hawks_team:
+  name: North Dakota Fighting Hawks
+  city: Grand Forks
+  state: North Dakota
+northern_kentucky_norse_team:
+  name: Northern Kentucky Norse
+  city: Highland Heights
+  state: Kentucky
+northwestern_wildcats_team:
+  name: Northwestern Wildcats
+  city: Evanston
+  state: Illinois
+notre_dame_fighting_irish_team:
+  name: Notre Dame Fighting Irish
+  city: Notre Dame
+  state: Indiana
+oklahoma_state_cowboys_team:
+  name: Oklahoma State Cowboys
+  city: Stillwater
+  state: Oklahoma
+oregon_ducks_team:
+  name: Oregon Ducks
+  city: Eugene
+  state: Oregon
+princeton_tigers_team:
+  name: Princeton Tigers
+  city: Princeton
+  state: New Jersey
+purdue_boilermakers_team:
+  name: Purdue Boilermakers
+  city: West Lafayette
+  state: Indiana
+rhode_island_rams_team:
+  name: Rhode Island Rams
+  city: Kingston
+  state: Rhode Island
+saint_mary's(ca)gaels_team:
+  name: Saint Mary's (CA) Gaels
+  city: Moraga
+  state: California
+seton_hall_pirates_team:
+  name: Seton Hall Pirates
+  city: South Orange
+  state: New Jersey
+the_real_usc:
+  name: South Carolina Gamecocks
+  city: Columbia
+  state: South Carolina
+south_dakota_state_jackrabbits_team:
+  name: South Dakota State Jackrabbits
+  city: Brookings
+  state: South Dakota
+southern_california_trojans_team:
+  name: Southern California Trojans
+  city: Los Angeles
+  state: California
+southern_methodist_mustangs_team:
+  name: Southern Methodist Mustangs
+  city: Dallas
+  state: Texas
+texas_southern_tigers_team:
+  name: Texas Southern Tigers
+  city: Houston
+  state: Texas
+troy_trojans_team:
+  name: Troy Trojans
+  city: Troy
+  state: Alabama
+uc_davis_aggies_team:
+  name: UC-Davis Aggies
+  city: Davis
+  state: California
+ucla_bruins_team:
+  name: UCLA Bruins
+  city: Los Angeles
+  state: California
+vanderbilt_commodores_team:
+  name: Vanderbilt Commodores
+  city: Nashville
+  state: Tennessee
+vermont_catamounts_team:
+  name: Vermont Catamounts
+  city: Burlington
+  state: Vermont
+villanova_wildcats_team:
+  name: Villanova Wildcats
+  city: Villanova
+  state: Pennsylvania
+virginia_cavaliers_team:
+  name: Virginia Cavaliers
+  city: Charlottesville
+  state: Virginia
+virginia_commonwealth_rams_team:
+  name: Virginia Commonwealth Rams
+  city: Richmond
+  state: Virginia
+virginia_tech_hokies_team:
+  name: Virginia Tech Hokies
+  city: Blacksburg
+  state: Virginia
+west_virginia_mountaineers_team:
+  name: West Virginia Mountaineers
+  city: Morgantown
+  state: West Virginia
+wichita_state_shockers_team:
+  name: Wichita State Shockers
+  city: Wichita
+  state: Kansas
+winthrop_eagles_team:
+  name: Winthrop Eagles
+  city: Rock Hill
+  state: South Carolina
+wisconsin_badgers_team:
+  name: Wisconsin Badgers
+  city: Madison
+  state: Wisconsin
+xavier_musketeers_team:
+  name: Xavier Musketeers
+  city: Cincinnati
+  state: Ohio
