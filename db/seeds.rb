@@ -1,5 +1,6 @@
 teams = File.open(File.join(Rails.root, 'db', 'seeds', 'teams.csv')).map do |line|
-   line.gsub!("\n", '').split(',')[0..3]
+   team = line.gsub!("\n", '').split(',')[0..3]
+   [team[0], team[1], team[1][0..15], team[2], team[3]]
 end
 
 tournament_teams = []
@@ -39,8 +40,9 @@ if Rails.env.test?
       team_id_to_fixture_base_name[team[0]] = fixture_base_name
       w.puts "#{fixture_base_name}_team:"
       w.puts "  name: #{team[1]}"
-      w.puts "  city: #{team[2]}"
-      w.puts "  state: #{team[3]}"
+      w.puts "  short_name: #{team[2]}"
+      w.puts "  city: #{team[3]}"
+      w.puts "  state: #{team[4]}"
     end
   end
 
@@ -74,7 +76,7 @@ else
   TournamentTeam.delete_all
   Team.delete_all
   #---------------Load Teams------------
-  Team.import([:id, :name, :city, :state], teams, validate: false)
+  Team.import([:id, :name, :short_name, :city, :state], teams, validate: false)
   #---------------Load Teams------------
 
   #---------------Load TournamentTeams------------

@@ -36,7 +36,7 @@ baylor_bears_new_mexico_state_aggies_tournament_match_up:
   bottom_team_score: 73
 south_carolina_gamecocks_marquette_golden_eagles_tournament_match_up:
   game: 7
-  top_tournament_team: the_real_usc_tournament_team
+  top_tournament_team: south_carolina_gamecocks_tournament_team
   top_team_score: 93
   bottom_tournament_team: marquette_golden_eagles_tournament_team
   bottom_team_score: 73
@@ -95,97 +95,97 @@ arizona_wildcats_north_dakota_fighting_hawks_tournament_match_up:
   bottom_tournament_team: north_dakota_fighting_hawks_tournament_team
   bottom_team_score: 82
 kansas_jayhawks_uc_davis_aggies_tournament_match_up:
-  game: 17
+  game: 32
   top_tournament_team: kansas_jayhawks_tournament_team
   top_team_score: 100
   bottom_tournament_team: uc_davis_aggies_tournament_team
   bottom_team_score: 62
 miami(fl)hurricanes_michigan_state_spartans_tournament_match_up:
-  game: 18
+  game: 31
   top_tournament_team: miami(fl)hurricanes_tournament_team
   top_team_score: 58
   bottom_tournament_team: michigan_state_spartans_tournament_team
   bottom_team_score: 78
 iowa_state_cyclones_nevada_wolf_pack_tournament_match_up:
-  game: 19
+  game: 30
   top_tournament_team: iowa_state_cyclones_tournament_team
   top_team_score: 84
   bottom_tournament_team: nevada_wolf_pack_tournament_team
   bottom_team_score: 73
 purdue_boilermakers_vermont_catamounts_tournament_match_up:
-  game: 20
+  game: 29
   top_tournament_team: purdue_boilermakers_tournament_team
   top_team_score: 80
   bottom_tournament_team: vermont_catamounts_tournament_team
   bottom_team_score: 70
 creighton_bluejays_rhode_island_rams_tournament_match_up:
-  game: 21
+  game: 28
   top_tournament_team: creighton_bluejays_tournament_team
   top_team_score: 72
   bottom_tournament_team: rhode_island_rams_tournament_team
   bottom_team_score: 84
 oregon_ducks_iona_gaels_tournament_match_up:
-  game: 22
+  game: 27
   top_tournament_team: oregon_ducks_tournament_team
   top_team_score: 93
   bottom_tournament_team: iona_gaels_tournament_team
   bottom_team_score: 77
 michigan_wolverines_oklahoma_state_cowboys_tournament_match_up:
-  game: 23
+  game: 26
   top_tournament_team: michigan_wolverines_tournament_team
   top_team_score: 92
   bottom_tournament_team: oklahoma_state_cowboys_tournament_team
   bottom_team_score: 91
 louisville_cardinals_jacksonville_state_gamecocks_tournament_match_up:
-  game: 24
+  game: 25
   top_tournament_team: louisville_cardinals_tournament_team
   top_team_score: 78
   bottom_tournament_team: jacksonville_state_gamecocks_tournament_team
   bottom_team_score: 63
 north_carolina_tar_heels_texas_southern_tigers_tournament_match_up:
-  game: 25
+  game: 24
   top_tournament_team: north_carolina_tar_heels_tournament_team
   top_team_score: 103
   bottom_tournament_team: texas_southern_tigers_tournament_team
   bottom_team_score: 64
 arkansas_razorbacks_seton_hall_pirates_tournament_match_up:
-  game: 26
+  game: 23
   top_tournament_team: arkansas_razorbacks_tournament_team
   top_team_score: 77
   bottom_tournament_team: seton_hall_pirates_tournament_team
   bottom_team_score: 71
 minnesota_golden_gophers_middle_tennessee_blue_raiders_tournament_match_up:
-  game: 27
+  game: 22
   top_tournament_team: minnesota_golden_gophers_tournament_team
   top_team_score: 72
   bottom_tournament_team: middle_tennessee_blue_raiders_tournament_team
   bottom_team_score: 81
 butler_bulldogs_winthrop_eagles_tournament_match_up:
-  game: 28
+  game: 21
   top_tournament_team: butler_bulldogs_tournament_team
   top_team_score: 76
   bottom_tournament_team: winthrop_eagles_tournament_team
   bottom_team_score: 64
 cincinnati_bearcats_kansas_state_wildcats_tournament_match_up:
-  game: 29
+  game: 20
   top_tournament_team: cincinnati_bearcats_tournament_team
   top_team_score: 75
   bottom_tournament_team: kansas_state_wildcats_tournament_team
   bottom_team_score: 61
 ucla_bruins_kent_state_golden_flashes_tournament_match_up:
-  game: 30
+  game: 19
   top_tournament_team: ucla_bruins_tournament_team
   top_team_score: 97
   bottom_tournament_team: kent_state_golden_flashes_tournament_team
   bottom_team_score: 80
 dayton_flyers_wichita_state_shockers_tournament_match_up:
-  game: 31
+  game: 18
   top_tournament_team: dayton_flyers_tournament_team
   top_team_score: 58
   bottom_tournament_team: wichita_state_shockers_tournament_team
   bottom_team_score: 64
 kentucky_wildcats_northern_kentucky_norse_tournament_match_up:
-  game: 32
+  game: 17
   top_tournament_team: kentucky_wildcats_tournament_team
   top_team_score: 79
   bottom_tournament_team: northern_kentucky_norse_tournament_team
@@ -210,7 +210,7 @@ southern_california_trojans_baylor_bears_tournament_match_up:
   bottom_team_score: 82
 south_carolina_gamecocks_duke_blue_devils_tournament_match_up:
   game: 36
-  top_tournament_team: the_real_usc_tournament_team
+  top_tournament_team: south_carolina_gamecocks_tournament_team
   top_team_score: 88
   bottom_tournament_team: duke_blue_devils_tournament_team
   bottom_team_score: 81
@@ -239,49 +239,49 @@ saint_mary's(ca)gaels_arizona_wildcats_tournament_match_up:
   bottom_tournament_team: arizona_wildcats_tournament_team
   bottom_team_score: 69
 kansas_jayhawks_michigan_state_spartans_tournament_match_up:
-  game: 41
+  game: 48
   top_tournament_team: kansas_jayhawks_tournament_team
   top_team_score: 90
   bottom_tournament_team: michigan_state_spartans_tournament_team
   bottom_team_score: 70
 iowa_state_cyclones_purdue_boilermakers_tournament_match_up:
-  game: 42
+  game: 47
   top_tournament_team: iowa_state_cyclones_tournament_team
   top_team_score: 76
   bottom_tournament_team: purdue_boilermakers_tournament_team
   bottom_team_score: 80
 rhode_island_rams_oregon_ducks_tournament_match_up:
-  game: 43
+  game: 46
   top_tournament_team: rhode_island_rams_tournament_team
   top_team_score: 72
   bottom_tournament_team: oregon_ducks_tournament_team
   bottom_team_score: 75
 michigan_wolverines_louisville_cardinals_tournament_match_up:
-  game: 44
+  game: 45
   top_tournament_team: michigan_wolverines_tournament_team
   top_team_score: 73
   bottom_tournament_team: louisville_cardinals_tournament_team
   bottom_team_score: 69
 north_carolina_tar_heels_arkansas_razorbacks_tournament_match_up:
-  game: 45
+  game: 44
   top_tournament_team: north_carolina_tar_heels_tournament_team
   top_team_score: 72
   bottom_tournament_team: arkansas_razorbacks_tournament_team
   bottom_team_score: 65
 middle_tennessee_blue_raiders_butler_bulldogs_tournament_match_up:
-  game: 46
+  game: 43
   top_tournament_team: middle_tennessee_blue_raiders_tournament_team
   top_team_score: 65
   bottom_tournament_team: butler_bulldogs_tournament_team
   bottom_team_score: 74
 cincinnati_bearcats_ucla_bruins_tournament_match_up:
-  game: 47
+  game: 42
   top_tournament_team: cincinnati_bearcats_tournament_team
   top_team_score: 67
   bottom_tournament_team: ucla_bruins_tournament_team
   bottom_team_score: 79
 wichita_state_shockers_kentucky_wildcats_tournament_match_up:
-  game: 48
+  game: 41
   top_tournament_team: wichita_state_shockers_tournament_team
   top_team_score: 62
   bottom_tournament_team: kentucky_wildcats_tournament_team
@@ -296,7 +296,7 @@ baylor_bears_south_carolina_gamecocks_tournament_match_up:
   game: 50
   top_tournament_team: baylor_bears_tournament_team
   top_team_score: 50
-  bottom_tournament_team: the_real_usc_tournament_team
+  bottom_tournament_team: south_carolina_gamecocks_tournament_team
   bottom_team_score: 70
 gonzaga_bulldogs_west_virginia_mountaineers_tournament_match_up:
   game: 51
@@ -311,25 +311,25 @@ xavier_musketeers_arizona_wildcats_tournament_match_up:
   bottom_tournament_team: arizona_wildcats_tournament_team
   bottom_team_score: 71
 kansas_jayhawks_purdue_boilermakers_tournament_match_up:
-  game: 53
+  game: 56
   top_tournament_team: kansas_jayhawks_tournament_team
   top_team_score: 98
   bottom_tournament_team: purdue_boilermakers_tournament_team
   bottom_team_score: 66
 oregon_ducks_michigan_wolverines_tournament_match_up:
-  game: 54
+  game: 55
   top_tournament_team: oregon_ducks_tournament_team
   top_team_score: 69
   bottom_tournament_team: michigan_wolverines_tournament_team
   bottom_team_score: 68
 north_carolina_tar_heels_butler_bulldogs_tournament_match_up:
-  game: 55
+  game: 54
   top_tournament_team: north_carolina_tar_heels_tournament_team
   top_team_score: 92
   bottom_tournament_team: butler_bulldogs_tournament_team
   bottom_team_score: 80
 ucla_bruins_kentucky_wildcats_tournament_match_up:
-  game: 56
+  game: 53
   top_tournament_team: ucla_bruins_tournament_team
   top_team_score: 75
   bottom_tournament_team: kentucky_wildcats_tournament_team
@@ -338,7 +338,7 @@ florida_gators_south_carolina_gamecocks_tournament_match_up:
   game: 57
   top_tournament_team: florida_gators_tournament_team
   top_team_score: 70
-  bottom_tournament_team: the_real_usc_tournament_team
+  bottom_tournament_team: south_carolina_gamecocks_tournament_team
   bottom_team_score: 77
 gonzaga_bulldogs_xavier_musketeers_tournament_match_up:
   game: 58
@@ -347,20 +347,20 @@ gonzaga_bulldogs_xavier_musketeers_tournament_match_up:
   bottom_tournament_team: xavier_musketeers_tournament_team
   bottom_team_score: 59
 kansas_jayhawks_oregon_ducks_tournament_match_up:
-  game: 59
+  game: 60
   top_tournament_team: kansas_jayhawks_tournament_team
   top_team_score: 60
   bottom_tournament_team: oregon_ducks_tournament_team
   bottom_team_score: 74
 north_carolina_tar_heels_kentucky_wildcats_tournament_match_up:
-  game: 60
+  game: 59
   top_tournament_team: north_carolina_tar_heels_tournament_team
   top_team_score: 75
   bottom_tournament_team: kentucky_wildcats_tournament_team
   bottom_team_score: 73
 south_carolina_gamecocks_gonzaga_bulldogs_tournament_match_up:
   game: 61
-  top_tournament_team: the_real_usc_tournament_team
+  top_tournament_team: south_carolina_gamecocks_tournament_team
   top_team_score: 73
   bottom_tournament_team: gonzaga_bulldogs_tournament_team
   bottom_team_score: 77

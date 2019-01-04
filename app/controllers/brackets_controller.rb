@@ -10,8 +10,8 @@ class BracketsController < ApplicationController
       only: [:game, :top_team_score, :bottom_team_score],
       methods: :winner,
       include: {
-        top_tournament_team: {only: :rank, include: {team: {only: :name}}},
-        bottom_tournament_team: {only: :rank, include: {team: {only: :name}}}
+        top_tournament_team: {only: :rank, include: {team: {only: [:name, :short_name]}}},
+        bottom_tournament_team: {only: :rank, include: {team: {only: [:name, :short_name]}}}
       }
     )
     # Return as object rather than array because when games are being played they

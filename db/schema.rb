@@ -17,10 +17,13 @@ ActiveRecord::Schema.define(version: 2019_01_02_231240) do
 
   create_table "teams", force: :cascade do |t|
     t.string "name"
+    t.string "short_name"
     t.string "city"
     t.string "state"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_teams_on_name"
+    t.index ["short_name"], name: "index_teams_on_short_name"
   end
 
   create_table "tournament_match_ups", force: :cascade do |t|

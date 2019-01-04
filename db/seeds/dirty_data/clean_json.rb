@@ -1,12 +1,23 @@
 require 'json'
 schools = {}
-File.open('../schools.csv').each do |line|
+File.open('schools.csv').each do |line|
   school = line.gsub!("\n", '').split(',')
   raise 'Same name schools! Oh no!' if schools.key?(school[1])
   # name => id
   schools[school[1]] = school[0]
 end
-@mappings = {
+game_number_mapping = {
+  1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5, 6 => 6, 7 => 7, 8 => 8, 9 => 9,
+  10 => 10, 11 => 11, 12 => 12, 13 => 13, 14 => 14, 15 => 15, 16 => 16, 17 => 32,
+  18 => 31, 19 => 30, 20 => 29, 21 => 28, 22 => 27, 23 => 26, 24 => 25, 25 => 24,
+  26 => 23, 27 => 22, 28 => 21, 29 => 20, 30 => 19, 31 => 18, 32 => 17, 33 => 33,
+  34 => 34, 35 => 35, 36 => 36, 37 => 37, 38 => 38, 39 => 39, 40 => 40, 41 => 48,
+  42 => 47, 43 => 46, 44 => 45, 45 => 44, 46 => 43, 47 => 42, 48 => 41, 49 => 49,
+  50 => 50, 51 => 51, 52 => 52, 53 => 56, 54 => 55, 55 => 54, 56 => 53, 57 => 57,
+  58 => 58, 59 => 60, 60 => 59, 61 => 61, 62 => 62, 63 => 63
+}
+
+@name_mappings = {
   "SMU" => "Southern Methodist Mustangs",
   "Loyola–Chicago" => "Loyola (IL) Ramblers",
   "Georgia" => "Georgia Bulldogs",
@@ -128,7 +139,7 @@ end
   "UC Davis" => "UC-Davis Aggies"
 }
 def fix_name(t)
-  @mappings[t['team']] || t['team']
+  @name_mappings[t['team']] || t['team']
 end
 
 File.open(File.join('games.csv'), 'w') do |file|
@@ -144,19 +155,19 @@ File.open(File.join('games.csv'), 'w') do |file|
       region = nil
       case g[0]['round_of']
       when 64 # 32 games
-        region = (index/8).floor
+        region = (index / 8).floor
       when 32 # 16 games
-        region = ((index - 32)/4).floor
+        region = ((index - 32) / 4).floor
       when 16 # 8 games
-        region = ((index- 48)/2).floor
+        region = ((index - 48) / 2).floor
       else
-         # only do 56 because 4 and 5 should be region champs vs and 60 -56
-         # only do 56 because 6 should be champs vs and 62 - 56
+        # only do 56 because 4 and 5 should be region champs vs and 60 -56
+        # only do 56 because 6 should be champs vs and 62 - 56
         region = (index - 56)
       end
       # game#, year, region, top_team_id, top_team_seed, top_team_points, bottom_team_id, bottom_team_seed, bottom_team_points, round_of
       to_write = [
-        index + 1, year, region, schools[our_team_names0[0]], g[0]['seed'], g[0]['score'], schools[our_team_names1[0]], g[1]['seed'], g[1]['score'], g[0]['round_of']
+        game_number_mapping[index + 1], year, region, schools[our_team_names0[0]], g[0]['seed'], g[0]['score'], schools[our_team_names1[0]], g[1]['seed'], g[1]['score'], g[0]['round_of']
       ]
       file.puts(to_write.join(','))
     end
