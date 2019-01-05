@@ -143,7 +143,7 @@ def fix_name(t)
 end
 
 File.open(File.join('games.csv'), 'w') do |file|
-  (1985..2017).to_a.each do |year|
+  (1985..2018).to_a.each do |year|
     games_in_tournament = JSON.parse(File.read(File.join('json', "#{year}.json")))
     games_in_tournament.each_with_index do |g, index|
       our_team_names0 = schools.keys.select { |s| s.include?(fix_name(g[0])) }

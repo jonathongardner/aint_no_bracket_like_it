@@ -1,0 +1,450 @@
+[
+  [
+    {
+      "seed": 1,
+      "team": "Virginia",
+      "score": 54,
+      "round_of": 64
+    },
+    {
+      "seed": 16,
+      "team": "Maryland-Baltimore County Retrievers",
+      "score": 74,
+      "round_of": 64
+    }
+  ],
+  [
+    {
+      "seed": 8,
+      "team": "Creighton Bluejays",
+      "score": 59,
+      "round_of": 64
+    },
+    {
+      "seed": 9,
+      "team": "Kansas State Wildcats",
+      "score": 69,
+      "round_of": 64
+    }
+  ],
+  [
+    {
+      "seed": 5,
+      "team": "Kentucky Wildcats",
+      "score": 78,
+      "round_of": 64
+    },
+    {
+      "seed": 12,
+      "team": "Davidson",
+      "score": 73,
+      "round_of": 64
+    }
+  ],
+  [
+    {
+      "seed": 4,
+      "team": "Arizona Wildcats",
+      "score": 68,
+      "round_of": 64
+    },
+    {
+      "seed": 13,
+      "team": "Buffalo Bulls",
+      "score": 89,
+      "round_of": 64
+    }
+  ],
+  [
+    {
+      "seed": 6,
+      "team": "Miami (FL) Hurricanes",
+      "score": 62,
+      "round_of": 64
+    },
+    {
+      "seed": 11,
+      "team": "Loyola (IL) Ramblers",
+      "score": 64,
+      "round_of": 64
+    }
+  ],
+  [
+    {
+      "seed": 3,
+      "team": "Tennessee Volunteers",
+      "score": 73,
+      "round_of": 64
+    },
+    {
+      "seed": 14,
+      "team": "Wright State Raiders",
+      "score": 47,
+      "round_of": 64
+    }
+  ],
+  [
+    {
+      "seed": 7,
+      "team": "Nevada Wolf Pack",
+      "score": 87,
+      "round_of": 64
+    },
+    {
+      "seed": 10,
+      "team": "Texas Longhorns",
+      "score": 83,
+      "round_of": 64
+    }
+  ],
+  [
+    {
+      "seed": 2,
+      "team": "Cincinnati Bearcats",
+      "score": 68,
+      "round_of": 64
+    },
+    {
+      "seed": 15,
+      "team": "Georgia State Panthers",
+      "score": 53,
+      "round_of": 64
+    }
+  ],
+  [
+    {
+      "seed": 1,
+      "team": "Xavier Musketeers",
+      "score": 102,
+      "round_of": 64
+    },
+    {
+      "seed": 16,
+      "team": "Texas Southern Tigers",
+      "score": 83,
+      "round_of": 64
+    }
+  ],
+  [
+    {
+      "seed": 8,
+      "team": "Missouri Tigers",
+      "score": 54,
+      "round_of": 64
+    },
+    {
+      "seed": 9,
+      "team": "Florida State Seminoles",
+      "score": 67,
+      "round_of": 64
+    }
+  ],
+  [
+    {
+      "seed": 5,
+      "team": "Ohio State Buckeyes",
+      "score": 81,
+      "round_of": 64
+    },
+    {
+      "seed": 12,
+      "team": "South Dakota State Jackrabbits",
+      "score": 73,
+      "round_of": 64
+    }
+  ],
+  [
+    {
+      "seed": 4,
+      "team": "Gonzaga Bulldogs",
+      "score": 68,
+      "round_of": 64
+    },
+    {
+      "seed": 13,
+      "team": "North Carolina-Greensboro Spartans",
+      "score": 64,
+      "round_of": 64
+    }
+  ],
+  [
+    {
+      "seed": 6,
+      "team": "Houston Cougars",
+      "score": 67,
+      "round_of": 64
+    },
+    {
+      "seed": 11,
+      "team": "San Diego State Aztecs",
+      "score": 65,
+      "round_of": 64
+    }
+  ],
+  [
+    {
+      "seed": 3,
+      "team": "Michigan Wolverines",
+      "score": 61,
+      "round_of": 64
+    },
+    {
+      "seed": 14,
+      "team": "Montana Grizzlies",
+      "score": 47,
+      "round_of": 64
+    }
+  ],
+  [
+    {
+      "seed": 7,
+      "team": "Texas A&M Aggies",
+      "score": 73,
+      "round_of": 64
+    },
+    {
+      "seed": 10,
+      "team": "Providence Friars",
+      "score": 69,
+      "round_of": 64
+    }
+  ],
+  [
+    {
+      "seed": 2,
+      "team": "North Carolina Tar Heels",
+      "score": 84,
+      "round_of": 64
+    },
+    {
+      "seed": 15,
+      "team": "Lipscomb Bisons",
+      "score": 66,
+      "round_of": 64
+    }
+  ],
+  [
+    {
+      "seed": 1,
+      "team": "Villanova Wildcats",
+      "score": 81,
+      "round_of": 64
+    },
+    {
+      "seed": 16,
+      "team": "Radford Highlanders",
+      "score": 61,
+      "round_of": 64
+    }
+  ],
+  [
+    {
+      "seed": 8,
+      "team": "Virginia Tech Hokies",
+      "score": 83,
+      "round_of": 64
+    },
+    {
+      "seed": 9,
+      "team": "Alabama Crimson Tide",
+      "score": 86,
+      "round_of": 64
+    }
+  ],
+  [
+    {
+      "seed": 5,
+      "team": "West Virginia Mountaineers",
+      "score": 85,
+      "round_of": 64
+    },
+    {
+      "seed": 12,
+      "team": "Murray State Racers",
+      "score": 68,
+      "round_of": 64
+    }
+  ],
+  [
+    {
+      "seed": 4,
+      "team": "Wichita State Shockers",
+      "score": 75,
+      "round_of": 64
+    },
+    {
+      "seed": 13,
+      "team": "Marshall Thundering Herd",
+      "score": 81,
+      "round_of": 64
+    }
+  ],
+  [
+    {
+      "seed": 6,
+      "team": "Florida Gators",
+      "score": 77,
+      "round_of": 64
+    },
+    {
+      "seed": 11,
+      "team": "St. Bonaventure Bonnies",
+      "score": 62,
+      "round_of": 64
+    }
+  ],
+  [
+    {
+      "seed": 3,
+      "team": "Texas Tech Red Raiders",
+      "score": 70,
+      "round_of": 64
+    },
+    {
+      "seed": 14,
+      "team": "Stephen F. Austin Lumberjacks",
+      "score": 60,
+      "round_of": 64
+    }
+  ],
+  [
+    {
+      "seed": 7,
+      "team": "Arkansas Razorbacks",
+      "score": 62,
+      "round_of": 64
+    },
+    {
+      "seed": 10,
+      "team": "Butler Bulldogs",
+      "score": 79,
+      "round_of": 64
+    }
+  ],
+  [
+    {
+      "seed": 2,
+      "team": "Purdue Boilermakers",
+      "score": 74,
+      "round_of": 64
+    },
+    {
+      "seed": 15,
+      "team": "Cal State Fullerton Titans",
+      "score": 48,
+      "round_of": 64
+    }
+  ],
+  [
+    {
+      "seed": 1,
+      "team": "Kansas Jayhawks",
+      "score": 76,
+      "round_of": 64
+    },
+    {
+      "seed": 16,
+      "team": "Penn State Nittany Lions",
+      "score": 60,
+      "round_of": 64
+    }
+  ],
+  [
+    {
+      "seed": 8,
+      "team": "Seton Hall Pirates",
+      "score": 94,
+      "round_of": 64
+    },
+    {
+      "seed": 9,
+      "team": "North Carolina State Wolfpack",
+      "score": 83,
+      "round_of": 64
+    }
+  ],
+  [
+    {
+      "seed": 5,
+      "team": "Clemson Tigers",
+      "score": 79,
+      "round_of": 64
+    },
+    {
+      "seed": 12,
+      "team": "New Mexico State Aggies",
+      "score": 68,
+      "round_of": 64
+    }
+  ],
+  [
+    {
+      "seed": 4,
+      "team": "Auburn Tigers",
+      "score": 62,
+      "round_of": 64
+    },
+    {
+      "seed": 13,
+      "team": "College of Charleston Cougars",
+      "score": 58,
+      "round_of": 64
+    }
+  ],
+  [
+    {
+      "seed": 6,
+      "team": "Texas Christian Horned Frogs",
+      "score": 52,
+      "round_of": 64
+    },
+    {
+      "seed": 11,
+      "team": "Syracuse Orange",
+      "score": 57,
+      "round_of": 64
+    }
+  ],
+  [
+    {
+      "seed": 3,
+      "team": "Michigan State Spartans",
+      "score": 82,
+      "round_of": 64
+    },
+    {
+      "seed": 14,
+      "team": "Bucknell Bison",
+      "score": 78,
+      "round_of": 64
+    }
+  ],
+  [
+    {
+      "seed": 7,
+      "team": "Rhode Island Rams",
+      "score": 83,
+      "round_of": 64
+    },
+    {
+      "seed": 10,
+      "team": "Oklahoma Sooners",
+      "score": 78,
+      "round_of": 64
+    }
+  ],
+  [
+    {
+      "seed": 2,
+      "team": "Duke Blue Devils",
+      "score": 89,
+      "round_of": 64
+    },
+    {
+      "seed": 15,
+      "team": "Iona Gaels",
+      "score": 67,
+      "round_of": 64
+    }
+  ]
+]
