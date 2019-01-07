@@ -22,4 +22,12 @@ class BracketsControllerTest < ActionDispatch::IntegrationTest
     assert_equal 1, games.first, 'Should return the first game'
     assert_equal 32, games.last, 'Should return the last game'
   end
+  test "should get bracket stats for game 7" do
+    get bracket_stats_url(7)
+    assert_response :success
+
+    assert_equal([{"rank" => 7, "count" => 1}], parsed_response['commonTopRank'], 'Should return rank 7 and count 1')
+    assert_equal([{"rank" => 10, "count" => 1}], parsed_response['commonBottomRank'], 'Should return rank 10 and count 1')
+    assert_equal([{"topRank" => 7, "bottomRank" => 10, "count" => 1}], parsed_response['commonMatchUps'], 'Should return rank 7 and 10 and count 1')
+  end
 end
