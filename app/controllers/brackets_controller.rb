@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class BracketsController < ApplicationController
+  ignore_login! only: [:show, :initial, :stats]
   def show
     bracket = TournamentMatchUp.includes(top_tournament_team: :team, bottom_tournament_team: :team)
       .where(tournament_teams: {year: params[:year]})
