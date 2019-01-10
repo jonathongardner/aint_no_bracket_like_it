@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 2019_01_09_182031) do
   enable_extension "plpgsql"
 
   create_table "saved_brackets", force: :cascade do |t|
+    t.string "name"
     t.bigint "unique_game_number"
     t.bigint "picked_games"
     t.bigint "user_id"

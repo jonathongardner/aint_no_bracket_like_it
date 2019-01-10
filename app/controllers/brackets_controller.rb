@@ -1,24 +1,19 @@
 # frozen_string_literal: true
 
 class BracketsController < ApplicationController
-  include TournamentResponse
-
   ignore_login! only: [:show, :initial, :stats]
-  def show
-    to_return = TournamentMatchUp.include_teams
-      .year_is(params[:year])
-      .reduce({}) { |acc, mu| acc.merge(mu.game => tournament_match_up_response(mu)) }
 
-    render json: to_return, status: :ok
+  def show
+    match_ups = TournamentMatchUp.include_teams.year_is(params[:year])
+
+    render_tournament_match_up match_ups
   end
 
   def initial
-    to_return = TournamentMatchUp.include_teams
-      .year_is(params[:year])
-      .game_is(((-1.0 / 0)..32)) # -1.0/0 is -Inf this will do <= 32 in SQL
-      .reduce({}) { |acc, mu| acc.merge(mu.game => tournament_match_up_response(mu, except: ['winner', 'score'])) }
+    # -1.0/0 is -Inf this will do <= 32 in SQL
+    match_ups = TournamentMatchUp.include_teams.year_is(params[:year]).game_is(((-1.0 / 0)..32))
 
-    render json: to_return, status: :ok
+    render_tournament_match_up match_ups, except: ['winner', 'score']
   end
 
   def stats

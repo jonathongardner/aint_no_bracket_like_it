@@ -1,7 +1,25 @@
 # frozen_string_literal: true
 
-module TournamentResponse
+module HelpfulResponses
   extend ActiveSupport::Concern
+
+  included do
+    rescue_from ActiveRecord::RecordNotFound do |_e|
+      render json: {errors: {record_not_found: [_e.to_s]}}, status: :not_found
+    end
+  end
+
+  def render_error(ar, status: :unprocessable_entity)
+    render json: {errors: ar.errors}, status: status
+  end
+
+  def render_tournament_match_up(match_ups, except: [], status: :ok) # keys:,
+    # array_of_keys = Array.new(keys)
+    # key = array_of_keys.reduce(mu) { |acc, v| acc = acc.send(v) }
+    to_return = match_ups.reduce({}) { |acc, mu| acc.merge(mu.game => tournament_match_up_response(mu, except: except)) }
+    render json: to_return, status: :ok
+  end
+
 
   # bracket_as_json = bracket.as_json(
   #   only: [:game, :top_team_score, :bottom_team_score],

@@ -1,16 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 some_great_users_47_bracket:
+  name: 'My47Bracket'
   unique_game_number: 47
   picked_games: 21
   user: some_great_user
 
 some_great_users_35_bracket:
+  name: 'My35Bracket'
   unique_game_number: 35
   picked_games: 27
   user: some_great_user
 
 another_great_users_35_bracket:
+  name: 'My35Bracket'
   unique_game_number: 35
   picked_games: 27
   user: another_great_user

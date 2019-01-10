@@ -28,7 +28,7 @@ module ExtraAsserts
     errors = parsed_response['errors']
     keys.each do |c|
       key, num = c.is_a?(String) ? [c, 0] : [c.keys[0], c.values[0]]
-      assert_match error_message, errors[key][num], "Should have the correct error message #{key}: #{errors[key][num]}"
+      assert_equal error_message, errors[key][num], "Should have the correct error message #{key}: #{errors[key][num]}"
     end
   end
 end
