@@ -22,4 +22,13 @@ module ExtraAsserts
   def assert_number_of_errors(num, record)
     assert_equal num, record.errors.messages.length, "Should have #{num} error messages. Errors #{record.errors.messages}"
   end
+
+  def assert_response_error(error_message, *keys)
+    assert parse_response.key?('errors'), 'should be nested in errors'
+    errors = parsed_response['errors']
+    keys.each do |c|
+      key, num = c.is_a?(String) ? [c, 0] : [c.keys[0], c.values[0]]
+      assert_match error_message, errors[key][num], "Should have the correct error message #{key}: #{errors[key][num]}"
+    end
+  end
 end

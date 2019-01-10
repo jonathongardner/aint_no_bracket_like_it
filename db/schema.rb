@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_09_112613) do
+ActiveRecord::Schema.define(version: 2019_01_09_182031) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "saved_brackets", force: :cascade do |t|
+    t.bigint "unique_game_number"
+    t.bigint "picked_games"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_saved_brackets_on_user_id"
+  end
 
   create_table "teams", force: :cascade do |t|
     t.string "name"
@@ -59,6 +68,7 @@ ActiveRecord::Schema.define(version: 2019_01_09_112613) do
     t.index ["username"], name: "index_users_on_username"
   end
 
+  add_foreign_key "saved_brackets", "users"
   add_foreign_key "tournament_match_ups", "tournament_teams", column: "bottom_tournament_team_id"
   add_foreign_key "tournament_match_ups", "tournament_teams", column: "top_tournament_team_id"
   add_foreign_key "tournament_teams", "teams"

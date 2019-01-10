@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/jonathongardner/slots.git
-  revision: 91a46f79b92865dd34a83b0e82d6c0e22619ea5d
+  revision: e9083572d9003235d2a452fc8f67e6cf1319e188
   tag: v0.0.1a
   specs:
     slots (0.1.0)
