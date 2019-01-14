@@ -89,4 +89,12 @@ else
     validate: false
   )
   #---------------Load TournamentMatchUps------------
+  # User block rather than create_with because passowrd is not a column its a ~alias
+  User.find_or_create_by!(id: 1) do |user|
+    user.email = 'JonathonGardner@bellsouth.net'
+    user.username = 'JonathonGardner'
+    user.admin = true
+    user.password = 'mypass'
+    user.approved = true
+  end
 end

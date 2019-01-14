@@ -9,6 +9,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
 
       # approvable
       t.boolean :approved, default: false, null: false
+      t.boolean :admin, default: false, null: false
 
       t.timestamps
     end

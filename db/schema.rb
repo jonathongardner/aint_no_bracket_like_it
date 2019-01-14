@@ -25,6 +25,16 @@ ActiveRecord::Schema.define(version: 2019_01_09_182031) do
     t.index ["user_id"], name: "index_saved_brackets_on_user_id"
   end
 
+  create_table "slots_sessions", force: :cascade do |t|
+    t.string "session"
+    t.bigint "jwt_iat"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["session"], name: "index_slots_sessions_on_session", unique: true
+    t.index ["user_id"], name: "index_slots_sessions_on_user_id"
+  end
+
   create_table "teams", force: :cascade do |t|
     t.string "name"
     t.string "short_name"
@@ -63,6 +73,7 @@ ActiveRecord::Schema.define(version: 2019_01_09_182031) do
     t.string "username"
     t.string "password_digest"
     t.boolean "approved", default: false, null: false
+    t.boolean "admin", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email"
