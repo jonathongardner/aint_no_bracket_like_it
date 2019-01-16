@@ -41,7 +41,7 @@ class SavedBracket < ApplicationRecord
   end
 
   def games
-    return @game if @games
+    return @games if @games
     binary_ugn = self.binary_unique_game_number
     binary_pg = self.binary_picked_games
     @games = (1..63).reduce({}) do |acc, game_number|

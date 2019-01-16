@@ -30,15 +30,16 @@ class SavedBracketsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create saved_bracket for a user but not no user" do
+    games = {
+      "1" => {"winner" => "bottom"},
+      "2" => {"winner" => "bottom"},
+      "4" => {"winner" => "top"},
+      "5" => {"winner" => "top"}
+    }
     params = {
       saved_bracket: {
         name: 'SomeName',
-        games: {
-          "1" => {"winner" => "bottom"},
-          "2" => {"winner" => "bottom"},
-          "4" => {"winner" => "top"},
-          "5" => {"winner" => "top"}
-        },
+        games: games,
         user_id: users(:another_great_user).id
       }
     }
@@ -53,6 +54,7 @@ class SavedBracketsControllerTest < ActionDispatch::IntegrationTest
       assert_response :success, 'Should be success for a user'
     end
     assert_equal user.id, SavedBracket.find(parsed_response['id']).user_id, 'Should be the user who created not the passed user'
+    assert_equal games, parsed_response['games'], 'Should be the games passed' # check strong params are correct
 
     params[:saved_bracket][:name] = nil
     assert_no_difference('SavedBracket.count') do

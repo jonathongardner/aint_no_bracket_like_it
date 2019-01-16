@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 2019_01_09_182031) do
   create_table "slots_sessions", force: :cascade do |t|
     t.string "session"
     t.bigint "jwt_iat"
+    t.bigint "previous_jwt_iat"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
