@@ -1,0 +1,5 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+some_great_users_47_unique_bracket:
+  id: 47
+  user: some_great_user

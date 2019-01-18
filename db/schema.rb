@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_09_182031) do
+ActiveRecord::Schema.define(version: 2019_01_18_184213) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,13 @@ ActiveRecord::Schema.define(version: 2019_01_09_182031) do
     t.index ["year"], name: "index_tournament_teams_on_year"
   end
 
+  create_table "unique_brackets", force: :cascade do |t|
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_unique_brackets_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "username"
@@ -85,4 +92,5 @@ ActiveRecord::Schema.define(version: 2019_01_09_182031) do
   add_foreign_key "tournament_match_ups", "tournament_teams", column: "bottom_tournament_team_id"
   add_foreign_key "tournament_match_ups", "tournament_teams", column: "top_tournament_team_id"
   add_foreign_key "tournament_teams", "teams"
+  add_foreign_key "unique_brackets", "users"
 end

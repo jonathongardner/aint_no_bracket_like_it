@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'test_helper'
-
 class SavedBracketTest < ActiveSupport::TestCase
   test "should not create saved_bracket without name, unique_game_number, picked_games, or user" do
     new_saved_bracket = SavedBracket.new

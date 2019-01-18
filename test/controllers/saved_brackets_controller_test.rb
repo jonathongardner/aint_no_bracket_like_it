@@ -2,10 +2,6 @@
 
 require 'test_helper'
 class SavedBracketsControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @saved_bracket = saved_brackets(:some_great_users_47_bracket)
-  end
-
   test "should get index for some_great_user but not no user" do
     get saved_brackets_url
     assert_response :unauthorized, 'Should be unauthorized for no user'
