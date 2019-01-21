@@ -18,8 +18,13 @@ class SavedBracketTest < ActiveSupport::TestCase
     assert_number_of_errors 1, new_saved_bracket
   end
   test "should create saved_bracket" do
-    new_saved_bracket = SavedBracket.new(name: 'CoolName', unique_game_number: 5, picked_games: 1, user: users(:some_great_user))
-    assert new_saved_bracket.save, 'Did not save new saved_bracket with correct info'
+    lowest = SavedBracket.new(name: 'perfect', unique_game_number: 0, picked_games: 1, user: users(:some_great_user))
+    assert lowest.save, 'Did not save new saved_bracket with correct info and prefect bracket'
+    assert_equal 0, lowest.unique_game_number, 'Should have same lower number'
+
+    highest = SavedBracket.new(name: 'Chaos', unique_game_number: Bracket::FINISHED, picked_games: Bracket::FINISHED, user: users(:some_great_user))
+    assert highest.save, 'Did not save new saved_bracket with correct info and chaos bracket'
+    assert_equal Bracket::FINISHED, highest.unique_game_number, 'Should have same high number'
   end
   test "should update name of is_unique" do
     saved_bracket = saved_brackets(:some_great_users_47_bracket)

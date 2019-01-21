@@ -38,4 +38,30 @@ class BracketTest < ActiveSupport::TestCase
     new_bracket = Bracket.new(unique_game_number: 47, picked_games: Bracket::FINISHED)
     assert_equal games, new_bracket.games
   end
+  test "should return games left" do
+    games_left = (1..63).reduce({}) { |acc, g| acc.merge(g.to_s => ['top']) }
+
+    games_left['1'] = ["top", "bottom"]
+    games_left['2'] = ["top", "bottom"]
+    games_left['3'] = ["top", "bottom"]
+    games_left['6'] = ["top", "bottom"]
+    new_bracket = Bracket.new()
+    assert_equal games_left, new_bracket.unique_games_available, 'Expected no game passed to return all options'
+
+    games_left['1'] = []
+    games_left['2'] = []
+    new_bracket = Bracket.new(unique_game_number: 3, picked_games: 3)
+    assert_equal games_left, new_bracket.unique_games_available, 'Expected 3 as number game passed to return all options'
+
+    games_left['3'] = ["top"]
+    games_left['6'] = []
+    new_bracket = Bracket.new(unique_game_number: 35, picked_games: 35)
+    assert_equal games_left, new_bracket.unique_games_available, 'Expected 35 as number game passed to return all options'
+
+    games_left['2'] = ["top", "bottom"]
+    games_left['3'] = []
+    games_left['6'] = ["top"]
+    new_bracket = Bracket.new(unique_game_number: 5, picked_games: 5)
+    assert_equal games_left, new_bracket.unique_games_available, 'Expected 5 as number game passed to return all options'
+  end
 end

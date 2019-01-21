@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  get 'unique_brackets/available', to: 'unique_brackets#available', as: "unique_brackets_available"
   resources :unique_brackets, only: [:show, :index]
   resources :saved_brackets
   # resources :brackets

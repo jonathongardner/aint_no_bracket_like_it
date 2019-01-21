@@ -15,9 +15,11 @@ class Bracket
   end
 
   def games=(value)
+    reset_unique_games_available
     @games = value
+    # so its unfroze
     binary_ugn = +''
-    binary_pg = +'' # so its unfroze
+    binary_pg  = +''
     (1..63).each do |game_number|
       pt = @games.dig(game_number.to_s, 'winner')
       if pt == 'top'
@@ -35,6 +37,22 @@ class Bracket
     self.binary_picked_games = binary_pg
   end
 
+  def unique_games_available
+    return @unique_games_available if @unique_games_available
+    games_left = UniqueBracket.no_user
+      .top_bracket_matches(top_games)
+      .bottom_bracket_matches(bottom_games)
+
+    top_games_left, bottom_games_left = games_left.pluck_top_and_bottom(@picked_games)
+
+    @unique_games_available = (1..63).reduce({}) do |acc, game_number|
+      to_add = []
+      to_add.push('top') if top_games_left[63 - game_number] == '1'
+      to_add.push('bottom') if bottom_games_left[63 - game_number] == '1'
+      acc.merge(game_number.to_s => to_add)
+    end
+  end
+
   def games
     return @games if @games
     @games = (1..63).reduce({}) do |acc, game_number|
@@ -50,6 +68,16 @@ class Bracket
   end
 
   private
+    def reset_unique_games_available
+      @unique_games_available = nil
+    end
+    def top_games
+      @picked_games & ~@unique_game_number
+    end
+    def bottom_games
+      @picked_games & @unique_game_number
+    end
+
     def game_picked?(game_number)
       @binary_picked_games[63 - game_number] == '1'
     end
@@ -58,19 +86,23 @@ class Bracket
     end
 
     def unique_game_number=(v)
+      reset_unique_games_available
       @binary_unique_game_number = v.to_s(2).rjust(63, '0')
       @unique_game_number = v
     end
     def picked_games=(v)
+      reset_unique_games_available
       @binary_picked_games = v.to_s(2).rjust(63, '0')
       @picked_games = v
     end
 
     def binary_unique_game_number=(v)
+      reset_unique_games_available
       @unique_game_number = v.to_i(2)
       @binary_unique_game_number = v.rjust(63, '0')
     end
     def binary_picked_games=(v)
+      reset_unique_games_available
       @picked_games = v.to_i(2)
       @binary_picked_games = v.rjust(63, '0')
     end

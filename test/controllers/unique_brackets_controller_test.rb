@@ -24,4 +24,24 @@ class UniqueBracketsControllerTest < ActionDispatch::IntegrationTest
     authorized_get ub.user, unique_bracket_url(ub)
     assert_response :success
   end
+
+  test "should get available unique brackets for a user but not no user" do
+    games = {
+      "1" => {"winner" => "bottom"},
+      "2" => {"winner" => "bottom"},
+      "3" => {"winner" => "top"},
+    }
+    get unique_brackets_available_url(games: games)
+    assert_response :unauthorized, 'Should be unauthorized for no user'
+
+    user = users(:some_great_user)
+    authorized_get user, unique_brackets_available_url(games: games)
+
+    games_left = (1..63).reduce({}) { |acc, g| acc.merge(g.to_s => ['top']) }
+    games_left['1'] = []
+    games_left['2'] = []
+    games_left['3'] = []
+    games_left['6'] = ['top', 'bottom']
+    assert_equal games_left, parsed_response
+  end
 end

@@ -13,4 +13,14 @@ class UniqueBracketTest < ActiveSupport::TestCase
     assert_equal saved_brackets(:some_great_users_47_bracket), unique_brackets(:some_great_users_47_unique_bracket).saved_bracket
     assert_nil unique_brackets(:no_one_35_unique_bracket).saved_bracket
   end
+
+  test "should save highest and lowest bracket" do
+    # lowest = UniqueBracket.new(id: 0, user: users(:some_great_user))
+    # assert lowest.save, 'Should create lowest bracket'
+    # assert_equal 0, lowest.id, 'Should have same number'
+
+    highest = UniqueBracket.new(id: Bracket::FINISHED, user: users(:some_great_user))
+    assert highest.save, 'Should create highest bracket'
+    assert_equal Bracket::FINISHED, highest.id, 'Should have same number'
+  end
 end
