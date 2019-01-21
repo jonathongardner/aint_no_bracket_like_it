@@ -1,5 +1,24 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+no_one_0_unique_bracket:
+  id: 0
+no_one_1_unique_bracket:
+  id: 1
+no_one_2_unique_bracket:
+  id: 2
+no_one_3_unique_bracket:
+  id: 3
+no_one_4_unique_bracket:
+  id: 4
+no_one_5_unique_bracket:
+  id: 5
+no_one_6_unique_bracket:
+  id: 6
+no_one_7_unique_bracket:
+  id: 7
+no_one_35_unique_bracket:
+  id: 35
+
 some_great_users_47_unique_bracket:
   id: 47
   user: some_great_user

@@ -53,7 +53,7 @@ class SavedBracketsController < ApplicationController
       #     "2" => {"winner"=>"top"}
       #   }
       # }
-      params.require(:saved_bracket).permit(:name, games: [:winner])
+      params.require(:saved_bracket).permit(:name, :is_unique, games: [:winner])
     end
 
     def render_bracket(bracket, **options)

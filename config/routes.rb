@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :unique_brackets, except: [:update, :destroy]
+  resources :unique_brackets, only: [:show, :index]
   resources :saved_brackets
   # resources :brackets
   get 'brackets/:year', to: 'brackets#show', as: "bracket"

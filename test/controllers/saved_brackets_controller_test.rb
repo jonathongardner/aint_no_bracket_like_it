@@ -61,7 +61,7 @@ class SavedBracketsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update saved_bracket for a user but not no user or wrong user" do
-    sb = saved_brackets(:some_great_users_47_bracket)
+    sb = saved_brackets(:some_great_users_35_bracket)
     params = {
       saved_bracket: {
         games: {

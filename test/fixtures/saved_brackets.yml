@@ -3,17 +3,22 @@
 some_great_users_47_bracket:
   name: 'My47Bracket'
   unique_game_number: 47
-  picked_games: 21
+  picked_games: <%= Bracket::FINISHED %>
   user: some_great_user
-
+  is_unique: true
 some_great_users_35_bracket:
   name: 'My35Bracket'
   unique_game_number: 35
   picked_games: 27
   user: some_great_user
 
+another_great_users_47_bracket:
+  name: 'My47BracketToo'
+  unique_game_number: 47
+  picked_games: <%= Bracket::FINISHED %>
+  user: another_great_user
 another_great_users_35_bracket:
-  name: 'My35Bracket'
+  name: 'My35BracketToo'
   unique_game_number: 35
   picked_games: 27
   user: another_great_user

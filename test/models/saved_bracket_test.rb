@@ -9,9 +9,46 @@ class SavedBracketTest < ActiveSupport::TestCase
     assert_error_message "must exist", new_saved_bracket, :user
     assert_number_of_errors 4, new_saved_bracket
   end
+  test "should not set as unique if bracket is not finished" do
+    new_saved_bracket = SavedBracket.new(
+      name: 'CoolName', unique_game_number: 5, picked_games: 1, is_unique: true, user: users(:some_great_user)
+    )
+    assert_not new_saved_bracket.save, 'Saved new saved_bracket as unique when not finished'
+    assert_error_message "must have a pick for all games", new_saved_bracket, :base
+    assert_number_of_errors 1, new_saved_bracket
+  end
   test "should create saved_bracket" do
     new_saved_bracket = SavedBracket.new(name: 'CoolName', unique_game_number: 5, picked_games: 1, user: users(:some_great_user))
     assert new_saved_bracket.save, 'Did not save new saved_bracket with correct info'
+  end
+  test "should update name of is_unique" do
+    saved_bracket = saved_brackets(:some_great_users_47_bracket)
+    saved_bracket.name = 'SomethingElse'
+    assert saved_bracket.save, 'Did not update name of saved_bracket when its a is_unique'
+  end
+  test "should not update unique_game_number, picked_games, or user of is_unique" do
+    saved_bracket = saved_brackets(:some_great_users_47_bracket)
+    saved_bracket.unique_game_number = 0
+    saved_bracket.picked_games = 0
+    saved_bracket.is_unique = false
+    saved_bracket.user = users(:another_great_user)
+
+    assert_not saved_bracket.save, 'Updated saved_bracket when its a is_unique'
+    assert_error_message "can't change after submitting as unique bracket", saved_bracket, :unique_game_number, :picked_games, :is_unique, :user
+    assert_number_of_errors 4, saved_bracket
+  end
+  test "should not set as unique if bracket is already taken" do
+    saved_bracket = saved_brackets(:another_great_users_47_bracket)
+    saved_bracket.is_unique = true
+    assert_not saved_bracket.save, 'Saved new saved_bracket as unique already taken'
+    assert_error_message "bracket has already been taken", saved_bracket, :base
+    assert_number_of_errors 1, saved_bracket
+  end
+  test "should update unique_bracket if set to is_unique" do
+    saved_bracket = saved_brackets(:another_great_users_35_bracket)
+    assert saved_bracket.update(is_unique: true, picked_games: Bracket::FINISHED), 'Did not save unqiue bracket as unique'
+
+    assert_equal saved_bracket.user, saved_bracket.unique_bracket.user, 'Should set user when set to unique'
   end
   test "should create saved_bracket with hash representing games" do
     games = {

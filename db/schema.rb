@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2019_01_18_184213) do
     t.string "name"
     t.bigint "unique_game_number"
     t.bigint "picked_games"
+    t.boolean "is_unique", default: false
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -24,34 +24,4 @@ class UniqueBracketsControllerTest < ActionDispatch::IntegrationTest
     authorized_get ub.user, unique_bracket_url(ub)
     assert_response :success
   end
-
-  test "should create unique_bracket for a user but not no user" do
-    games = {}
-    (1..63).each { |g| games[g.to_s] = {'winner' => 'top'} }
-    params = {
-      unique_bracket: {
-        games: games,
-        user_id: users(:another_great_user).id
-      }
-    }
-    assert_no_difference('UniqueBracket.count') do
-      post unique_brackets_url, params: params
-      assert_response :unauthorized, 'Should be unauthorized for no user'
-    end
-
-    user = users(:some_great_user)
-    assert_difference('UniqueBracket.count') do
-      authorized_post user, unique_brackets_url, params: params
-      assert_response :success, 'Should be success for a user'
-    end
-    assert_equal user.id, UniqueBracket.find(parsed_response['id']).user_id, 'Should be the user who created not the passed user'
-    assert_equal games, parsed_response['games'], 'Should be the games passed' # check strong params are correct
-
-    # params[:unique_bracket][:games] = nil
-    # assert_no_difference('UniqueBracket.count') do
-    #   authorized_post user, unique_brackets_url, params: params
-    #   assert_response :unprocessable_entity, 'Should be unprocessable_entity for a error'
-    # end
-    # assert_response_error "can't be blank", 'unique_game_number'
-  end
 end
