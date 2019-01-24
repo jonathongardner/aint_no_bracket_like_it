@@ -39,7 +39,7 @@ class BracketTest < ActiveSupport::TestCase
     assert_equal games, new_bracket.games
   end
   test "should return games left" do
-    games_left = (1..63).reduce({}) { |acc, g| acc.merge(g.to_s => ['top']) }
+    games_left = (1..63).reduce('unique' => true, 'finished' => false) { |acc, g| acc.merge(g.to_s => ['top']) }
 
     games_left['1'] = ["top", "bottom"]
     games_left['2'] = ["top", "bottom"]
@@ -63,5 +63,13 @@ class BracketTest < ActiveSupport::TestCase
     games_left['6'] = ["top"]
     new_bracket = Bracket.new(unique_game_number: 5, picked_games: 5)
     assert_equal games_left, new_bracket.unique_games_available, 'Expected 5 as number game passed to return all options'
+  end
+
+  test "should get if games are unique" do
+    new_bracket = Bracket.new(unique_game_number: 0, picked_games: Bracket::FINISHED)
+    assert new_bracket.unique_games_available['unique'], 'should be unique'
+
+    new_bracket = Bracket.new(unique_game_number: Bracket::FINISHED, picked_games: Bracket::FINISHED)
+    assert_not new_bracket.unique_games_available['unique'], 'should not be unique'
   end
 end

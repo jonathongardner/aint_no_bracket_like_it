@@ -24,16 +24,6 @@ class UniqueBracketsController < ApplicationController
     def set_unique_bracket
       @unique_bracket = current_user.unique_brackets.find(params[:id])
     end
-    def bracket_params
-      # This will allow
-      # {
-      #   "games" => {
-      #     "1" => {"winner"=>"top"},
-      #     "2" => {"winner"=>"top"}
-      #   }
-      # }
-      params.require(:saved_bracket).permit(games: [:winner])
-    end
 
     def render_bracket(bracket, **options)
       render json: bracket.as_json(only: [:id], methods: :games)

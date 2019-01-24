@@ -35,6 +35,7 @@ class SavedBracketsController < ApplicationController
 
   # DELETE /saved_brackets/1
   def destroy
+    return render json: {errors: {unique: ["can't be deleted"]}}, status: :unprocessable_entity if @saved_bracket.is_unique
     @saved_bracket.destroy
   end
 
@@ -56,7 +57,18 @@ class SavedBracketsController < ApplicationController
       params.require(:saved_bracket).permit(:name, :is_unique, games: [:winner])
     end
 
+    def render_brackets(bracket, **options)
+    end
+
     def render_bracket(bracket, **options)
-      render json: bracket.as_json(only: [:id, :name], methods: :games)
+      if bracket.is_a?(SavedBracket)
+        render json: bracket_response(bracket)
+      else
+        render json: bracket.map { |b| bracket_response(b) }
+      end
+    end
+
+    def bracket_response(bracket)
+      {id: bracket.id, name: bracket.name, games: bracket.games, isUnique: bracket.is_unique, updatedAt: bracket.updated_at}
     end
 end

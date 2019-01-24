@@ -44,8 +44,13 @@ class Bracket
       .bottom_bracket_matches(bottom_games)
 
     top_games_left, bottom_games_left = games_left.pluck_top_and_bottom(@picked_games)
+    # If there are no games available top_games_left and bottom_games_left will be nil so set to string
+    unique = top_games_left.present? && bottom_games_left.present?
+    top_games_left ||= ''
+    bottom_games_left ||= ''
 
-    @unique_games_available = (1..63).reduce({}) do |acc, game_number|
+
+    @unique_games_available = (1..63).reduce('unique' => unique, 'finished' => finished?) do |acc, game_number|
       to_add = []
       to_add.push('top') if top_games_left[63 - game_number] == '1'
       to_add.push('bottom') if bottom_games_left[63 - game_number] == '1'

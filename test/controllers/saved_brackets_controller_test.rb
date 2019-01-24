@@ -90,7 +90,7 @@ class SavedBracketsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy saved_bracket" do
-    sb = saved_brackets(:some_great_users_47_bracket)
+    sb = saved_brackets(:some_great_users_35_bracket)
     assert_no_difference('SavedBracket.count') do
       delete saved_bracket_url(sb)
       assert_response :unauthorized, 'Should be unauthorized for no user'
@@ -106,5 +106,15 @@ class SavedBracketsControllerTest < ActionDispatch::IntegrationTest
       authorized_delete user, saved_bracket_url(sb)
       assert_response :no_content, 'Should be no_content for correct user'
     end
+  end
+
+  test "should not destroy unique saved_bracket" do
+    sb = saved_brackets(:some_great_users_47_bracket)
+    user = sb.user
+    assert_no_difference('SavedBracket.count') do
+      authorized_delete user, saved_bracket_url(sb)
+      assert_response :unprocessable_entity, 'Should be unprocessable_entity for a error'
+    end
+    assert_response_error "can't be deleted", 'unique'
   end
 end

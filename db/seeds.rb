@@ -97,4 +97,7 @@ else
     user.password = 'mypass'
     user.approved = true
   end
+  UniqueBracket.find_or_initialize_by(id: 0) do |ub|
+    ub.save!(validate: false)
+  end
 end

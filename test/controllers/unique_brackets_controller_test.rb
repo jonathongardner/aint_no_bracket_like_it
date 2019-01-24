@@ -30,18 +30,22 @@ class UniqueBracketsControllerTest < ActionDispatch::IntegrationTest
       "1" => {"winner" => "bottom"},
       "2" => {"winner" => "bottom"},
       "3" => {"winner" => "top"},
+      "11" => {"winner" => "bottom"}
     }
-    get unique_brackets_available_url(games: games)
+    post unique_brackets_available_url(games: games)
     assert_response :unauthorized, 'Should be unauthorized for no user'
 
+    games_left = (1..63).reduce('unique' => false, 'finished' => false) { |acc, g| acc.merge(g.to_s => []) }
     user = users(:some_great_user)
-    authorized_get user, unique_brackets_available_url(games: games)
 
-    games_left = (1..63).reduce({}) { |acc, g| acc.merge(g.to_s => ['top']) }
-    games_left['1'] = []
-    games_left['2'] = []
-    games_left['3'] = []
-    games_left['6'] = ['top', 'bottom']
+    authorized_post user, unique_brackets_available_url(games: games)
     assert_equal games_left, parsed_response
+
+    games.delete('11')
+    games_left['unique'] = true
+    (4..63).each { |g| games_left[g.to_s] = ['top'] }
+    games_left['6'] = ['top', 'bottom']
+    authorized_post user, unique_brackets_available_url(games: games)
+    assert_equal games_left, parse_response
   end
 end
