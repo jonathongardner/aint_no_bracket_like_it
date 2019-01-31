@@ -9,10 +9,6 @@ module HelpfulResponses
     end
   end
 
-  def render_error(ar, status: :unprocessable_entity)
-    render json: {errors: ar.errors}, status: status
-  end
-
   def render_tournament_match_up(match_ups, except: [], status: :ok) # keys:,
     # array_of_keys = Array.new(keys)
     # key = array_of_keys.reduce(mu) { |acc, v| acc = acc.send(v) }

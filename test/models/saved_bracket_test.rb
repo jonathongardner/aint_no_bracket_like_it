@@ -79,4 +79,16 @@ class SavedBracketTest < ActiveSupport::TestCase
     }
     assert_equal games, saved_brackets(:some_great_users_35_bracket).games
   end
+  test "should not destroy unique bracket" do
+    saved_bracket = saved_brackets(:some_great_users_47_bracket)
+    assert_not saved_bracket.destroy, 'Destroyed unique bracket'
+    assert_error_message "can't be deleted", saved_bracket, :unique
+    assert_number_of_errors 1, saved_bracket
+  end
+  test "should not destroy none unique bracket" do
+    saved_bracket = saved_brackets(:another_great_users_47_bracket)
+    assert_difference('SavedBracket.count', -1) do
+      saved_bracket.destroy!
+    end
+  end
 end

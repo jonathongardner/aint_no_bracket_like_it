@@ -14,3 +14,10 @@ unapproved_user:
   email: 'UnapprovedEmail@somewhere.com'
   username: 'unapprovedusername'
   password_digest: <%= BCrypt::Password.create('password') %>
+
+some_great_admin_user:
+  email: 'SomeGenericAdminEmail@somewhere.com'
+  username: 'someadminusername'
+  password_digest: <%= BCrypt::Password.create('password') %>
+  approved: true
+  admin: true

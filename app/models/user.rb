@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  slots :database_authentication, :approvable
+  slots :database_authentication
   has_many :saved_brackets
   has_many :unique_brackets
 

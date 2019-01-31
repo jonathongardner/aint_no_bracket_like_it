@@ -15,28 +15,18 @@ class SavedBracketsController < ApplicationController
 
   # POST /saved_brackets
   def create
-    @saved_bracket = SavedBracket.new(saved_bracket_params.merge(user_id: current_user.id))
-
-    if @saved_bracket.save
-      render_bracket @saved_bracket, status: :created, location: @saved_bracket
-    else
-      render_error @saved_bracket
-    end
+    render_bracket SavedBracket.create!(saved_bracket_params.merge(user_id: current_user.id)),
+      status: :created, location: @saved_bracket
   end
 
   # PATCH/PUT /saved_brackets/1
   def update
-    if @saved_bracket.update(saved_bracket_params)
-      render_bracket @saved_bracket
-    else
-      render_error @saved_bracket
-    end
+    render_bracket @saved_bracket.update_self!(saved_bracket_params)
   end
 
   # DELETE /saved_brackets/1
   def destroy
-    return render json: {errors: {unique: ["can't be deleted"]}}, status: :unprocessable_entity if @saved_bracket.is_unique
-    @saved_bracket.destroy
+    @saved_bracket.destroy!
   end
 
   private

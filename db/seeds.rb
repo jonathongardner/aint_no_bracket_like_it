@@ -100,4 +100,15 @@ else
   UniqueBracket.find_or_initialize_by(id: 0) do |ub|
     ub.save!(validate: false)
   end
+  if Rails.env.development?
+    User.find_or_create_by!(email: 'GenericUser@somewhere.com') do |user|
+      user.username = 'GenericUser'
+      user.password = 'mypass'
+      user.approved = true
+    end
+    User.find_or_create_by!(email: 'UnapprovedUser@somewhere.com') do |user|
+      user.username = 'UnapprovedUser'
+      user.password = 'mypass'
+    end
+  end
 end
