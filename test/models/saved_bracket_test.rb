@@ -53,7 +53,8 @@ class SavedBracketTest < ActiveSupport::TestCase
     saved_bracket = saved_brackets(:another_great_users_35_bracket)
     assert saved_bracket.update(is_unique: true, picked_games: Bracket::FINISHED), 'Did not save unqiue bracket as unique'
 
-    assert_equal saved_bracket.user, saved_bracket.unique_bracket.user, 'Should set user when set to unique'
+    # Use SavedBracket.find(saved_bracket.id) to make sure it was saved (i.e. make sure autosave: true is on belongs to)
+    assert_equal saved_bracket.user, SavedBracket.find(saved_bracket.id).unique_bracket.user, 'Should set user when set to unique'
   end
   test "should create saved_bracket with hash representing games" do
     games = {

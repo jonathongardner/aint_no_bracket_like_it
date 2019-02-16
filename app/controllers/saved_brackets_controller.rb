@@ -59,6 +59,13 @@ class SavedBracketsController < ApplicationController
     end
 
     def bracket_response(bracket)
-      {id: bracket.id, name: bracket.name, games: bracket.games, isUnique: bracket.is_unique, updatedAt: bracket.updated_at}
+      {
+        id: bracket.id,
+        name: bracket.name,
+        games: bracket.games,
+        isUnique: bracket.is_unique,
+        uniqueBracketNumber: bracket.unique_game_number,
+        updatedAt: bracket.updated_at
+      }
     end
 end

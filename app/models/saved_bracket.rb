@@ -2,7 +2,7 @@
 
 class SavedBracket < ApplicationRecord
   belongs_to :user
-  belongs_to :unique_bracket, foreign_key: :unique_game_number, optional: true
+  belongs_to :unique_bracket, foreign_key: :unique_game_number, optional: true, autosave: true
   validates :name, :unique_game_number, :picked_games, presence: true
   validate :validate_is_unique_is_finished, :validate_and_set_user_for_unique_bracket, :validate_dont_change_is_unique
   before_destroy :check_if_unique
