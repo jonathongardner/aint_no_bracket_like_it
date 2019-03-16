@@ -26,6 +26,18 @@ class UniqueBracketsController < ApplicationController
     end
 
     def render_bracket(bracket, **options)
-      render json: bracket.as_json(only: [:id], methods: :games)
+      if bracket.is_a?(UniqueBracket)
+        render json: bracket_response(bracket)
+      else
+        render json: bracket.map { |b| bracket_response(b) }
+      end
+    end
+
+    def bracket_response(bracket)
+      {
+        id: bracket.id,
+        games: bracket.games,
+        isUnique: bracket.is_unique,
+      }
     end
 end

@@ -16,6 +16,10 @@ class UniqueBracket < ApplicationRecord
     @bracket = Bracket.new(unique_game_number: self.id, picked_games: Bracket::FINISHED)
   end
 
+  def is_unique
+    self.user_id.nil?
+  end
+
   def games
     bracket.games
   end

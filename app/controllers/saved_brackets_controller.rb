@@ -47,9 +47,6 @@ class SavedBracketsController < ApplicationController
       params.require(:saved_bracket).permit(:name, :is_unique, games: [:winner])
     end
 
-    def render_brackets(bracket, **options)
-    end
-
     def render_bracket(bracket, **options)
       if bracket.is_a?(SavedBracket)
         render json: bracket_response(bracket)
