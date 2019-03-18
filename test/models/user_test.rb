@@ -17,13 +17,23 @@ class UserTest < ActiveSupport::TestCase
     assert_number_of_errors 2, new_user
   end
   test "should not create user without email that follows email format" do
-    new_user = User.new(email: 'email@', username: 'username', password: 'Password')
+    new_user = User.new(
+      email: 'email@', username: 'username', password: 'Password', password_confirmation: 'Password'
+    )
     assert_not new_user.save, 'Saved new user without email that follows format'
     assert_error_message "incorrect format", new_user, :email
     assert_number_of_errors 1, new_user
   end
-  test "should create user" do
+  test "should not create user without password_confirmation" do
     new_user = User.new(email: 'email@somewhere.com', username: 'username', password: 'Password')
+    assert_not new_user.save, 'Saved new user without password_confirmation'
+    assert_error_message "can't be blank", new_user, :password_confirmation
+    assert_number_of_errors 1, new_user
+  end
+  test "should create user" do
+    new_user = User.new(
+      email: 'email@somewhere.com', username: 'username', password: 'Password', password_confirmation: 'Password'
+    )
     assert new_user.save, 'Did not save new user with correct info'
   end
 end

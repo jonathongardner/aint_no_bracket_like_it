@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/jonathongardner/slots.git
-  revision: a8050aa1f7cd7296cd41d5322086e973d8b06df8
-  tag: v0.0.1a
+  revision: f2ba3cacc5bd56d84979bfce0435be4fee646da1
+  branch: master
   specs:
     slots (0.1.0)
       bcrypt (~> 3.1.7)
@@ -163,4 +163,4 @@ RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.16.2
+   2.0.1

@@ -11,6 +11,7 @@ class ApplicationController < ActionController::API
 
   catch_invalid_token
   catch_access_denied
+  catch_invalid_login # unauthorized
   rescue_from ActiveRecord::RecordInvalid, ActiveRecord::RecordNotDestroyed do |e|
     render json: {errors: e.record.errors}, status: :unprocessable_entity
   end
