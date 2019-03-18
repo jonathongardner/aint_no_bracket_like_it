@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :unique_brackets, only: [:show, :index]
   resources :saved_brackets
   resources :users, only: [:index, :create] do
-    get :approve
+    post :approve
   end
   put :users, controller: :users, action: :update
   patch :users, controller: :users, action: :update

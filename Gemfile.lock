@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/jonathongardner/slots.git
   revision: f2ba3cacc5bd56d84979bfce0435be4fee646da1
-  branch: master
+  tag: v0.0.1a
   specs:
     slots (0.1.0)
       bcrypt (~> 3.1.7)

@@ -16,7 +16,7 @@ class UsersController < ApplicationController
     admin_render(to_return)
   end
 
-  # GET /users/:user_id/approve
+  # POST /users/:user_id/approve
   def approve
     admin_render User.update!(params[:user_id], approved: params.key?(:approved) ? params[:approved] : true)
   end

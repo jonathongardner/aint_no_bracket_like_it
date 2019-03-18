@@ -26,24 +26,24 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   test "should approve users if authanticated and admin" do
     to_approve = users(:unapproved_user)
 
-    get user_approve_url(user_id: to_approve)
+    post user_approve_url(user_id: to_approve)
     assert_response :unauthorized, 'Should be unauthorized for no user'
 
-    authorized_get users(:some_great_user), user_approve_url(user_id: to_approve)
+    authorized_post users(:some_great_user), user_approve_url(user_id: to_approve)
     assert_response :forbidden, 'Should be forbidden for none admin'
 
     current_user = users(:some_great_admin_user)
 
-    authorized_get current_user, user_approve_url(user_id: to_approve)
+    authorized_post current_user, user_approve_url(user_id: to_approve)
     assert parse_response['approved'], 'Should be approved'
 
-    authorized_get current_user, user_approve_url(user_id: to_approve, approved: false)
+    authorized_post current_user, user_approve_url(user_id: to_approve, approved: false)
     assert_not parse_response['approved'], 'Should be unapproved'
 
-    authorized_get current_user, user_approve_url(user_id: to_approve, approved: true)
+    authorized_post current_user, user_approve_url(user_id: to_approve, approved: true)
     assert parse_response['approved'], 'Should be approved'
 
-    authorized_get current_user, user_approve_url(user_id: to_approve) # Make sure not toggling
+    authorized_post current_user, user_approve_url(user_id: to_approve) # Make sure not toggling
     assert parse_response['approved'], 'Should be approved'
   end
 
