@@ -53,9 +53,15 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       password: 'Password', password_confirmation: 'Password'
     }
     assert_difference('User.count') do
-      post users_url, params: { users: to_create }
+      post users_url, params: { user: to_create }
       assert_response :success
     end
+
+    assert_no_difference('User.count') do
+      post users_url, params: { user: to_create }
+      assert_response :unprocessable_entity, 'Should be unprocessable_entity for a error'
+    end
+    assert_response_error "has already been taken", 'username'
   end
 
   test "should update user for current_user" do
@@ -68,14 +74,26 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
     current_user = users(:some_great_user)
 
-    authorized_patch current_user, users_url, params: { users: to_update }
+    authorized_patch current_user, users_url, params: { user: to_update }
     assert_response :unauthorized, 'Should be unauthorized if no password sent'
 
-    authorized_patch current_user, users_url, params: { password: 'password', users: to_update }
+    authorized_patch current_user, users_url, params: { password: 'password', user: to_update }
     assert_response :success
 
     current_user.reload
     assert_not current_user.authenticate?('password'), 'Should not still have password'
     assert current_user.authenticate?('Password'), 'Should have updated password'
+
+    # Make sure dont have to update password?
+    authorized_patch current_user, users_url, params: { password: 'Password', user: to_update.slice(:username) }
+
+    current_user.reload
+    assert_not current_user.authenticate?('password'), 'Should not still have password'
+    assert current_user.authenticate?('Password'), 'Should have updated password'
+
+    to_update[:password_confirmation] = nil
+    authorized_patch current_user, users_url, params: { password: 'Password', user: to_update }
+    assert_response :unprocessable_entity, 'Should be unprocessable_entity for a error'
+    assert_response_error "can't be blank", 'password_confirmation'
   end
 end

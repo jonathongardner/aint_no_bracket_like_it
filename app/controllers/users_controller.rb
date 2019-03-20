@@ -23,21 +23,18 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-    # TODO Think about returning the token on create
-    # @manage.create_token(ActiveModel::Type::Boolean.new.cast(params[:session]))
-    # render json: @manage.as_json(methods: :token), status: :created
-    render json: User.create!(user_params).as_json, status: :created
+    @_current_user = User.create!(user_params)
+    current_user.create_token(ActiveModel::Type::Boolean.new.cast(params[:session]))
+    set_token_header!
+    render json: current_user.as_json, status: :created
   end
 
   # PATCH/PUT /users
   def update
+    # TODO Think about returning the token on create
     # To change any user information you need to reenter the password
     current_user.authenticate!(params[:password])
-    if current_user.update(user_params)
-      render json: current_user.as_json, status: :accepted
-    else
-      render json: {errors: current_user.errors}, status: :unprocessable_entity
-    end
+    render json: current_user.update_self!(user_params).as_json, status: :accepted
   end
   # # DELETE /manages/1
   # def destroy
@@ -52,6 +49,6 @@ class UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:users).permit(:email, :username, :password, :password_confirmation)
+      params.require(:user).permit(:email, :username, :password, :password_confirmation)
     end
 end
