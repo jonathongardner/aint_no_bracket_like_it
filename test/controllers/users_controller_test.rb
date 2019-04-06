@@ -65,7 +65,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update user for current_user" do
-    # TODO check that can send without password_confirmation
     to_update = {
       username: 'new_username', password: 'Password', password_confirmation: 'Password'
     }
@@ -95,5 +94,125 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     authorized_patch current_user, users_url, params: { password: 'Password', user: to_update }
     assert_response :unprocessable_entity, 'Should be unprocessable_entity for a error'
     assert_response_error "can't be blank", 'password_confirmation'
+  end
+
+  test "should create reset password token" do
+    user = users(:some_great_user)
+    get forgot_password_users_url, params: { email: user.email }
+    assert_response :success
+
+    user.reload
+    assert_equal 0, user.password_reset_token_attempts, 'Should set to 0'
+    assert user.password_reset_token_digest.present?, 'Password reset token should be present'
+  end
+
+  test "should not create reset password token for fake user" do
+    user = users(:some_great_user)
+    get forgot_password_users_url, params: { login:  user.username }
+    assert_response :success
+
+    user.reload
+    assert_nil user.password_reset_token_attempts, 'password_reset_token_attempts should be nil since email not found'
+    assert_nil user.password_reset_token_digest, 'password_reset_token_digest should be nil since email not found'
+  end
+
+  test "should not reset reset password token unless admin" do
+    user = some_great_user_with_password_reset_token(attempts: 2)
+    get admin_forgot_password_users_url, params: { email: user.email }
+    assert_response :unauthorized
+
+    user.reload
+    assert_equal 2, user.password_reset_token_attempts, 'Should not reset'
+
+    authorized_get user, admin_forgot_password_users_url, params: { email: user.email }
+    assert_response :forbidden
+
+    user.reload
+    assert_equal 2, user.password_reset_token_attempts, 'Should not reset'
+
+    authorized_get users(:some_great_admin_user), admin_forgot_password_users_url, params: { email: user.email }
+    assert_response :success
+
+    user.reload
+    assert_equal 0, user.password_reset_token_attempts, 'Should reset to 0'
+  end
+
+  test "should reset password token" do
+    user = some_great_user_with_password_reset_token
+    params = {
+      email: user.email, reset_token: 'token', new_password: 'new_password', new_password_confirmation: 'new_password'
+    }
+    get reset_password_users_url, params: params
+    assert_response :success
+
+    assert_password_reset_token(user, 'new_password')
+  end
+
+  test "should not reset password token even if user missing information" do
+    user = some_great_user_with_password_reset_token
+    user.username = nil
+    user.save(validate: false)
+
+    params = {
+      email: user.email, reset_token: 'token', new_password: 'new_password', new_password_confirmation: 'new_password'
+    }
+    get reset_password_users_url, params: params
+    assert_response :unprocessable_entity
+
+    assert_not_password_reset_token(user, 'password')
+    assert_equal [], parsed_response['errors'].keys, 'should only return these keys'
+  end
+
+  test "should not get success for fake user" do
+    user = some_great_user_with_password_reset_token
+    params = {
+      email: user.username, reset_token: 'not_token', new_password: 'new_password', new_password_confirmation: 'password'
+    }
+    get reset_password_users_url, params: params
+    assert_response :unprocessable_entity
+
+    assert_response_error("doesn't match Password", 'password_confirmation')
+    assert_response_error("doesn't match email", 'password_reset_token')
+    assert_equal ['password_confirmation', 'password_reset_token'], parsed_response['errors'].keys, 'should only return these keys'
+  end
+
+  test "should not reset password token" do
+    user = some_great_user_with_password_reset_token
+    params = {
+      email: user.email, reset_token: 'not_token', new_password: 'new_password', new_password_confirmation: 'password'
+    }
+    get reset_password_users_url, params: params
+    assert_response :unprocessable_entity
+
+    assert_not_password_reset_token(user, 'password')
+
+    assert_response_error("doesn't match Password", 'password_confirmation')
+    assert_response_error("doesn't match email", 'password_reset_token')
+    assert_equal ['password_confirmation', 'password_reset_token'], parsed_response['errors'].keys, 'should only return these keys'
+  end
+
+  def assert_not_password_reset_token(user, old_password, maxed: false)
+    attempts = user.password_reset_token_attempts + 1 unless maxed
+
+    user.reload
+    assert user.authenticate(old_password), 'Should not have change password'
+    assert user.password_reset_token_digest, 'Should have a password_reset_token_digest'
+    assert_equal attempts, user.password_reset_token_attempts, 'Should have a increased password_reset_token'
+  end
+
+  def assert_password_reset_token(user, password)
+    user.reload
+    assert user.authenticate(password), 'Should not have change password'
+    assert_nil user.password_reset_token_digest, 'Should not have a password_reset_token'
+    assert_nil user.password_reset_token_attempts, 'Should not have a password_reset_token_attempts'
+  end
+
+  def some_great_user_with_password_reset_token(token: 'token', attempts: 0)
+    user = users(:some_great_user)
+    user.update!(
+      password_reset_token_digest: BCrypt::Password.create(token),
+      password_reset_token_attempts: attempts
+    )
+    user
   end
 end

@@ -6,6 +6,13 @@ Rails.application.routes.draw do
   resources :saved_brackets
   resources :users, only: [:index, :create] do
     post :approve
+    collection do
+      get :forgot_password
+      get :reset_password
+      scope :admin do
+        get :forgot_password, action: :admin_forgot_password, as: :admin_forgot_password
+      end
+    end
   end
   put :users, controller: :users, action: :update
   patch :users, controller: :users, action: :update

@@ -1,5 +1,5 @@
 Slots.configure do |config|
-  config.logins = {email: /@/, username: //}
+  config.logins = {email: URI::MailTo::EMAIL_REGEXP, username: //}
   # config.login_regex_validations = true
   # config.authentication_model = 'User'
   # config.secret = ENV['SLOT_SECRET']
