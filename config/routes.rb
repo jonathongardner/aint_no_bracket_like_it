@@ -4,18 +4,24 @@ Rails.application.routes.draw do
   post 'unique_brackets/available', to: 'unique_brackets#available', as: "unique_brackets_available"
   resources :unique_brackets, only: [:show, :index]
   resources :saved_brackets
-  resources :users, only: [:index, :create] do
-    post :approve
+
+  resources :users, only: [:create] do
     collection do
+      patch :validate_email
       get :forgot_password
-      get :reset_password
-      scope :admin do
-        get :forgot_password, action: :admin_forgot_password, as: :admin_forgot_password
-      end
+      patch :reset_password
     end
   end
   put :users, controller: :users, action: :update
   patch :users, controller: :users, action: :update
+
+  namespace :admin do
+    resources :users, only: [:index] do
+      patch :approve
+      get :email_confirmation
+      get :forgot_password
+    end
+  end
   # resources :brackets
   get 'brackets/:year', to: 'brackets#show', as: "bracket"
   get 'brackets/:year/initial', to: 'brackets#initial', as: "initial_bracket"

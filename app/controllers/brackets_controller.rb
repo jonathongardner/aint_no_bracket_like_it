@@ -6,17 +6,23 @@ class BracketsController < ApplicationController
   def show
     match_ups = TournamentMatchUp.include_teams.year_is(params[:year])
 
+    raise ActiveRecord::RecordNotFound unless match_ups.present?
+
     render_tournament_match_up match_ups
   end
 
   def initial
-    # -1.0/0 is -Inf this will do <= 32 in SQL
-    match_ups = TournamentMatchUp.include_teams.year_is(params[:year]).game_is(((-1.0 / 0)..32))
+    # -Inf this will do <= 32 in SQL
+    match_ups = TournamentMatchUp.include_teams.year_is(params[:year]).game_is((NEGATIVE_INFINITY..32))
+
+    raise ActiveRecord::RecordNotFound unless match_ups.present?
 
     render_tournament_match_up match_ups, except: ['winner', 'score']
   end
 
   def stats
+    raise ActiveRecord::RecordNotFound unless params[:game_number].to_i.between?(0, 63)
+
     base_query = TournamentMatchUp.game_is(params[:game_number])
 
     top_seeds = base_query.top_rank_counts.as_json(except: :id)

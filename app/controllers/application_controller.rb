@@ -6,7 +6,7 @@ class ApplicationController < ActionController::API
   require_login!
 
   reject_token do
-    !current_user.approved
+    !(current_user.approved && current_user.email_validated?)
   end
 
   catch_invalid_token

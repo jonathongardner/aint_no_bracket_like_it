@@ -21,3 +21,16 @@ some_great_admin_user:
   password_digest: <%= BCrypt::Password.create('password') %>
   approved: true
   admin: true
+
+unvalidated_unapproved_email_user:
+  email: 'SomeUnvalidatedUnapproevedEmail@somewhere.com'
+  username: 'someunvalidatedunapprovedemailusername'
+  password_digest: <%= BCrypt::Password.create('password') %>
+  email_confirmation_token_digest: <%= BCrypt::Password.create('token') %>
+
+unvalidated_email_user:
+  email: 'SomeUnvalidatedEmail@somewhere.com'
+  username: 'someunvalidatedemailusername'
+  password_digest: <%= BCrypt::Password.create('password') %>
+  approved: true
+  email_confirmation_token_digest: <%= BCrypt::Password.create('token') %>

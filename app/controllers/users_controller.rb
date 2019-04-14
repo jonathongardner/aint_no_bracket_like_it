@@ -1,25 +1,12 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  ignore_login! only: [:create, :forgot_password, :reset_password]
   # Need to reload on update so info is correct and do overwrite data
-  require_user_load! except: [:create]
+  require_user_load!
+  ignore_login! only: [:create, :forgot_password, :reset_password]
+  # Ignore token forbidden
+  skip_callback! only: :validate_email
 
-  reject_token(only: [:index, :approve, :admin_forgot_password]) do
-    !current_user.admin
-  end
-
-  # GET /users
-  def index
-    to_return = User.where.not(id: current_user.id) # ignore self
-    to_return = to_return.where(approved: params[:approved]) if params.key?(:approved)
-    admin_render(to_return)
-  end
-
-  # POST /users/:user_id/approve
-  def approve
-    admin_render User.update!(params[:user_id], approved: params.key?(:approved) ? params[:approved] : true)
-  end
 
   # POST /users
   def create
@@ -29,27 +16,32 @@ class UsersController < ApplicationController
     render json: current_user.as_json, status: :created
   end
 
-  # GET /admin/forgot_password
-  def admin_forgot_password
-    reset_password_log("forgot password")
+  # PATCH/PUT /users
+  def update
+    # TODO Think about returning the token on create
+    # To change any user information you need to reenter the password
+    current_user.authenticate!(params[:password])
+    render json: current_user.update_self!(user_params).as_json, status: :accepted
+  end
 
-    # Use method rather than validations because should always return true
-    User.forgot_password(params[:email], reset: true)
-    # Return success no mater what so cant figure out if email exist or not
+  # GET users/validate_email
+  def validate_email
+    current_user.update!(email_confirmation_params.merge(email_confirmation_token_digest: nil))
+    current_user.update_token # Sjould returned updated token
     head :ok
   end
 
-  # GET /forgot_password
+  # GET users/forgot_password
   def forgot_password
     reset_password_log("forgot password")
-
+    user = User.find_by(email: params[:email])
     # Use method rather than validations because should always return true
-    User.forgot_password(params[:email])
+    user.forgot_password if user && user.reset_password_token_digest.blank?
     # Return success no mater what so cant figure out if email exist or not
     head :ok
   end
 
-  # GET /reset_password
+  # GET users/reset_password
   def reset_password
     reset_password_log("resetting password")
     # Use method rather than validations because should always return true
@@ -58,18 +50,11 @@ class UsersController < ApplicationController
 
     head :ok
   rescue ActiveRecord::RecordInvalid => e
-    failed_user = User.failed_password_reset_attempt(params[:email])
-    reset_password_log("failed reset password attempt (attempts #{failed_user.password_reset_token_attempts})")
-    render json: {errors: e.record.errors.as_json.slice(:password_confirmation, :password_reset_token) }, status: :unprocessable_entity
+    failed_user = User.failed_reset_password_attempt(params[:email])
+    reset_password_log("failed reset password attempt (attempts #{failed_user.reset_password_attempts})")
+    render json: {errors: e.record.errors.as_json.slice(:password_confirmation, :reset_password_token) }, status: :unprocessable_entity
   end
 
-  # PATCH/PUT /users
-  def update
-    # TODO Think about returning the token on create
-    # To change any user information you need to reenter the password
-    current_user.authenticate!(params[:password])
-    render json: current_user.update_self!(user_params).as_json, status: :accepted
-  end
   # # DELETE /manages/1
   # def destroy
   #   @manage.destroy
@@ -77,17 +62,17 @@ class UsersController < ApplicationController
   # end
 
   private
-    def admin_render(to_return)
-      render json: to_return.as_json(only: [:id, :username, :email, :approved])
-    end
-
     # Only allow a trusted parameter "white list" through.
     def user_params(*extra_params)
       params.require(:user).permit(:username, :password, :password_confirmation, *extra_params)
     end
 
+    def email_confirmation_params
+      params.permit(:email_confirmation_token)
+    end
+
     def reset_password_params
-      params.permit(:reset_token, :new_password, :new_password_confirmation)
+      params.permit(:reset_password_token, :new_password, :new_password_confirmation)
     end
 
     def reset_password_log(text)

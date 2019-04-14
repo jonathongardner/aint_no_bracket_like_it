@@ -12,7 +12,7 @@ gem 'puma', '~> 3.11'
 gem 'activerecord-import'
 
 # Use for token authentication
-gem 'slots', git: 'https://github.com/jonathongardner/slots.git', tag: 'v0.0.1' # path: '../slots'
+gem 'slots', git: 'https://github.com/jonathongardner/slots.git', tag: 'v0.0.3' # path: '../slots'
 
 
 # Reduces boot times through caching; required in config/boot.rb

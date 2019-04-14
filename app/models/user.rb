@@ -2,7 +2,7 @@
 
 class User < ApplicationRecord
   slots :database_authentication
-  include PasswordReset
+  include ResetPassword, EmailConfirmation
 
   has_many :saved_brackets
   has_many :unique_brackets

@@ -14,4 +14,8 @@ end
 
 class ActionDispatch::IntegrationTest
   include Slots::Tests
+
+  def fixture_id(sym)
+    ActiveRecord::FixtureSet.identify(sym)
+  end
 end
