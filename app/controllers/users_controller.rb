@@ -23,7 +23,7 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-    @_current_user = User.create!(user_params)
+    @_current_user = User.create!(user_params(:email))
     current_user.create_token(ActiveModel::Type::Boolean.new.cast(params[:session]))
     set_token_header!
     render json: current_user.as_json, status: :created
@@ -82,8 +82,8 @@ class UsersController < ApplicationController
     end
 
     # Only allow a trusted parameter "white list" through.
-    def user_params
-      params.require(:user).permit(:email, :username, :password, :password_confirmation)
+    def user_params(*extra_params)
+      params.require(:user).permit(:username, :password, :password_confirmation, *extra_params)
     end
 
     def reset_password_params

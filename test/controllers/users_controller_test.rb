@@ -66,7 +66,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test "should update user for current_user" do
     to_update = {
-      username: 'new_username', password: 'Password', password_confirmation: 'Password'
+      email: 'new_email', username: 'new_username', password: 'Password', password_confirmation: 'Password'
     }
     patch users_url
     assert_response :unauthorized, 'Should be unauthorized for no user'
@@ -80,6 +80,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     current_user.reload
+    refute_equal to_update[:email], current_user.email, 'Should not update users email'
     assert_not current_user.authenticate?('password'), 'Should not still have password'
     assert current_user.authenticate?('Password'), 'Should have updated password'
 

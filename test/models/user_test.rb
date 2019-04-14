@@ -30,15 +30,46 @@ class UserTest < ActiveSupport::TestCase
     assert_error_message "can't be blank", new_user, :password_confirmation
     assert_number_of_errors 1, new_user
   end
+  test "should clear user sessions when password updated" do
+    user = users(:some_great_user)
+    create_session(user)
+
+    user.update!(password: 'Password', password_confirmation: 'Password')
+    assert_equal 0, user.sessions.count, 'Should clear session when password forgot'
+  end
+  test "should not clear user sessions if password update fails" do
+    user = users(:some_great_user)
+    create_session(user)
+
+    assert_not user.update(password: 'Password'), 'Updated user without password_confirmation'
+    assert_error_message "can't be blank", user, :password_confirmation
+    assert_number_of_errors 1, user
+    assert_equal 1, user.sessions.count, 'Should clear session when password forgot'
+  end
+  test "should not clear user sessions if password not updated" do
+    user = users(:some_great_user)
+    create_session(user)
+
+    user.update!(username: 'new_username')
+    assert_equal 1, user.sessions.count, 'Should clear session when password forgot'
+  end
   test "should create user" do
     new_user = User.new(
       email: 'email@somewhere.com', username: 'username', password: 'Password', password_confirmation: 'Password'
     )
     assert new_user.save, 'Did not save new user with correct info'
   end
+
+  test "should not return password, password_digest, password_reset_token_digest, or password_reset_token_attempts in json" do
+    secret_columns = ['password', 'password_digest', 'password_reset_token_digest', 'password_reset_token_attempts']
+    keys_found = users(:some_great_user).as_json.keys & secret_columns
+    assert_empty keys_found, 'found secret keys in json'
+  end
   #---------------------------password reset token--------------------------
   test "should create password_reset_token when forgot_password" do
     user = users(:some_great_user)
+    create_session(user)
+
     assert_nil user.password_reset_token_digest, 'Should not have a password_reset_token'
     assert_nil user.password_reset_token_attempts, 'Should not have a password_reset_token_attempts'
 
@@ -47,6 +78,7 @@ class UserTest < ActiveSupport::TestCase
 
     assert user.password_reset_token_digest, 'Should set password_reset_token to random token'
     assert_equal 0, user.password_reset_token_attempts, 'Should set password_reset_token_attempts to 0'
+    assert_equal 0, user.sessions.count, 'Should clear session when password forgot'
   end
   test "should not create password_reset_token when forgot_password" do
     user = users(:some_great_user)
@@ -96,6 +128,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "should not allow authentication when token password_reset_token exists" do
+    # TODO Think about allowing login and reseting this if they do login after this is requested
     user = some_great_user_with_password_reset_token
     assert user.authenticate('password')
     assert_not user.authenticate?('password'), 'Allowed user with password_reset_token to authenticate'
@@ -223,5 +256,10 @@ class UserTest < ActiveSupport::TestCase
       password_reset_token_attempts: attempts
     )
     user
+  end
+
+  def create_session(user)
+    new_token = user.create_token(true)
+    assert_equal 1, user.sessions.count, 'Should have one session'
   end
 end

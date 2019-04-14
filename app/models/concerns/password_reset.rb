@@ -58,6 +58,7 @@ module PasswordReset
       )
       # TODO Send email about reset token
       user.save
+      user.clear_sessions
       token
     end
 
