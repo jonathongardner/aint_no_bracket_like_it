@@ -64,8 +64,13 @@ module ResetPassword
       reset_password_token: SecureRandom.hex(16),
       reset_password_attempts: 0
     )
-    # TODO Send email about reset token
-    clear_sessions if save
+    return unless save
+    send_reset_password_email
+    clear_sessions
+  end
+
+  def send_reset_password_email
+    UserMailer.reset_password(self, self.reset_password_token).deliver_now
   end
 
   module ClassMethods

@@ -11,6 +11,12 @@ module ExtraAsserts
   #   end
   #   assert false, "Should raise error #{error}"
   # end
+  def assert_previous_email(subject, *emails)
+    mail = ActionMailer::Base.deliveries.last
+    assert_equal subject, mail.subject, 'Should have subject'
+    assert_equal emails, mail.to, 'Should have to'
+
+  end
   def assert_error_message(message, record, *columns)
     raise 'must pass at least one argument' unless columns.length > 0
     raise 'must all be single objects or symbols' unless columns.all? { |c| c.is_a?(Symbol) || (c.is_a?(Hash) && c.length === 1) }

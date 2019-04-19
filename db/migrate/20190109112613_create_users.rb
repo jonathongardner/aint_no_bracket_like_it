@@ -10,6 +10,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :reset_password_token_digest
       t.integer :reset_password_attempts
 
+      t.boolean :email_confirmed, default: false, null: false
       t.string :email_confirmation_token_digest
 
       t.boolean :approved, default: false, null: false

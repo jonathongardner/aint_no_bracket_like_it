@@ -3,6 +3,8 @@
 require 'test_helper'
 module Admin
   class UsersControllerTest < ActionDispatch::IntegrationTest
+    include ActionMailer::TestHelper
+
     test "should get users" do
       user = users(:some_great_admin_user)
 
@@ -35,13 +37,30 @@ module Admin
       assert parse_response['approved'], 'Should be approved'
     end
 
+    #----------------Email Confirmation-------------------
+    test "should send user_email_confirmation_url" do
+      user = users(:unvalidated_unapproved_email_user)
+      current_user = users(:some_great_admin_user)
+
+      assert_emails 1 do
+        authorized_get current_user, admin_user_email_confirmation_url(user_id: user.id)
+      end
+
+      user.reload
+      assert user.email_confirmation_token_digest.present?, 'Should reset email_confirmation_token'
+      assert_previous_email "Ain't No Bracket Like It Email Confirmation", user.email
+    end
+    #----------------Email Confirmation-------------------
 
     #----------------Password Reset-------------------
     test "should reset reset_password_token" do
       user = user_with_password_reset_token(attempts: 2)
 
-      authorized_get users(:some_great_admin_user), admin_user_forgot_password_url(user_id: user.id)
-      assert_response :success
+      assert_emails 1 do
+        authorized_get users(:some_great_admin_user), admin_user_forgot_password_url(user_id: user.id)
+        assert_response :success
+      end
+      assert_previous_email "Ain't No Bracket Like It Reset Password", user.email
 
       user.reload
       assert_equal 0, user.reset_password_attempts, 'Should reset to 0'
@@ -64,16 +83,16 @@ module Admin
     end
 
     test "should have correct authentication for user_approve_url" do
-      user_id = users(:unvalidated_unapproved_email_user)
+      user = users(:unvalidated_unapproved_email_user)
       assert_authentication_response(:admin_only) do |current_user|
-        authorized_patch current_user, admin_user_approve_url(user_id: user_id)
+        authorized_patch current_user, admin_user_approve_url(user_id: user.id)
       end
     end
 
     test "should have correct authentication for user_email_confirmation_url" do
-      user_id = users(:unvalidated_unapproved_email_user)
+      user = users(:unvalidated_unapproved_email_user)
       assert_authentication_response(:admin_only) do |current_user|
-        authorized_get current_user, admin_user_email_confirmation_url(user_id: user_id)
+        authorized_get current_user, admin_user_email_confirmation_url(user_id: user.id)
       end
     end
 

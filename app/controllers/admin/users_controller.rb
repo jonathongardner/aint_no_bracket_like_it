@@ -24,6 +24,9 @@ module Admin
 
     # POST /admin/users/:user_id/email_confirmation
     def email_confirmation
+      @user.set_email_confirmation
+      @user.save!
+      @user.send_email_confirmation_email
     end
 
     # GET /admin/users/:user_id/forgot_password

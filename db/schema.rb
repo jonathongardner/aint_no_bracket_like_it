@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 2019_01_18_184213) do
     t.string "password_digest"
     t.string "reset_password_token_digest"
     t.integer "reset_password_attempts"
+    t.boolean "email_confirmed", default: false, null: false
     t.string "email_confirmation_token_digest"
     t.boolean "approved", default: false, null: false
     t.boolean "admin", default: false, null: false

@@ -90,25 +90,48 @@ else
   )
   #---------------Load TournamentMatchUps------------
   # User block rather than create_with because passowrd is not a column its a ~alias
-  User.find_or_create_by!(id: 1) do |user|
-    user.email = 'JonathonGardner@bellsouth.net'
+  User.find_or_initialize_by(email: 'JonathonGardner@bellsouth.net') do |user|
     user.username = 'JonathonGardner'
     user.admin = true
     user.password = 'mypass'
+    user.password_confirmation = 'mypass'
     user.approved = true
+    user.email_confirmed = true
+    user.save(validate: false)
   end
   UniqueBracket.find_or_initialize_by(id: 0) do |ub|
     ub.save!(validate: false)
   end
   if Rails.env.development?
-    User.find_or_create_by!(email: 'GenericUser@somewhere.com') do |user|
+    User.find_or_initialize_by(email: 'GenericUser@somewhere.com') do |user|
       user.username = 'GenericUser'
       user.password = 'mypass'
+      user.password_confirmation = 'mypass'
       user.approved = true
+      user.email_confirmed = true
+      user.save(validate: false)
     end
-    User.find_or_create_by!(email: 'UnapprovedUser@somewhere.com') do |user|
+    User.find_or_initialize_by(email: 'UnapprovedUser@somewhere.com') do |user|
       user.username = 'UnapprovedUser'
       user.password = 'mypass'
+      user.password_confirmation = 'mypass'
+      user.email_confirmed = true
+      user.save(validate: false)
+    end
+    User.find_or_initialize_by(email: 'UnvalidatedUser@somewhere.com') do |user|
+      user.username = 'UnvalidatedUser'
+      user.password = 'mypass'
+      user.password_confirmation = 'mypass'
+      user.approved = true
+      user.email_confirmation_token_digest = BCrypt::Password.create('token1')
+      user.save(validate: false)
+    end
+    User.find_or_initialize_by(email: 'UnvalidatedUnapprovedUser@somewhere.com') do |user|
+      user.username = 'UnvalidatedUnapprovedUser'
+      user.password = 'mypass'
+      user.password_confirmation = 'mypass'
+      user.email_confirmation_token_digest = BCrypt::Password.create('token2')
+      user.save(validate: false)
     end
   end
 end

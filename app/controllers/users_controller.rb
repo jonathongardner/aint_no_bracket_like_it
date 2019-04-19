@@ -18,16 +18,16 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users
   def update
-    # TODO Think about returning the token on create
     # To change any user information you need to reenter the password
     current_user.authenticate!(params[:password])
+    current_user.update_token
     render json: current_user.update_self!(user_params).as_json, status: :accepted
   end
 
   # GET users/validate_email
   def validate_email
-    current_user.update!(email_confirmation_params.merge(email_confirmation_token_digest: nil))
-    current_user.update_token # Sjould returned updated token
+    current_user.update!(email_confirmation_params.merge(email_confirmed: true, email_confirmation_token_digest: nil))
+    current_user.update_token # Should returne updated token
     head :ok
   end
 

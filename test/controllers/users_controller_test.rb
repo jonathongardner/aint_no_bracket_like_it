@@ -2,15 +2,20 @@
 
 require 'test_helper'
 class UsersControllerTest < ActionDispatch::IntegrationTest
+  include ActionMailer::TestHelper
+
   test "should create user" do
     to_create = {
       email: 'email@somewhere.com', username: 'username',
       password: 'Password', password_confirmation: 'Password'
     }
-    assert_difference('User.count') do
-      post users_url, params: { user: to_create }
-      assert_response :success
+    assert_emails 1 do
+      assert_difference('User.count') do
+        post users_url, params: { user: to_create }
+        assert_response :success
+      end
     end
+    assert_previous_email "Ain't No Bracket Like It Email Confirmation", to_create[:email]
   end
 
   test "should not create user if errors" do
@@ -19,9 +24,11 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       password: 'Password', password_confirmation: 'Password'
     }
 
-    assert_no_difference('User.count') do
-      post users_url, params: { user: to_create }
-      assert_response :unprocessable_entity, 'Should be unprocessable_entity for a error'
+    assert_no_emails do
+      assert_no_difference('User.count') do
+        post users_url, params: { user: to_create }
+        assert_response :unprocessable_entity, 'Should be unprocessable_entity for a error'
+      end
     end
     assert_response_error "has already been taken", 'email'
   end
@@ -32,25 +39,35 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     }
     current_user = users(:some_great_user)
 
-    authorized_patch current_user, users_url, params: { user: to_update }
-    assert_response :unauthorized, 'Should be unauthorized if no password sent'
+    assert_no_emails do
+      authorized_patch current_user, users_url, params: { user: to_update }
+      assert_response :unauthorized, 'Should be unauthorized if no password sent'
+    end
 
-    authorized_patch current_user, users_url, params: { password: 'password', user: to_update }
-    assert_response :success
+    assert_emails 1 do
+      authorized_patch current_user, users_url, params: { password: 'password', user: to_update }
+      assert_response :success
+    end
+    assert_previous_email "Ain't No Bracket Like It Password Changed", current_user.email
 
     current_user.reload
     refute_equal to_update[:email], current_user.email, 'Should not update users email'
     assert current_user.authenticate?('Password'), 'Should have updated password'
 
     # Make sure dont have to update password?
-    authorized_patch current_user, users_url, params: { password: 'Password', user: to_update.slice(:username) }
+    assert_no_emails do
+      authorized_patch current_user, users_url, params: { password: 'Password', user: to_update.slice(:username) }
+      assert_response :success
+    end
 
     current_user.reload
     assert current_user.authenticate?('Password'), 'Should have updated password'
   end
 
   test "should not update user for current_user if errors" do
-    authorized_patch users(:some_great_user), users_url, params: { password: 'password', user: { password: 'Password' } }
+    assert_no_emails do
+      authorized_patch users(:some_great_user), users_url, params: { password: 'password', user: { password: 'Password' } }
+    end
     assert_response :unprocessable_entity, 'Should be unprocessable_entity for a error'
     assert_response_error "can't be blank", 'password_confirmation'
   end
@@ -78,11 +95,15 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
   #----------------Email Verification-------------------
 
-  #----------------Password Reset-------------------
+  #----------------Forgot Password-------------------
   test "should create reset password token" do
     user = users(:some_great_user)
-    get forgot_password_users_url, params: { email: user.email }
-    assert_response :success
+
+    assert_emails 1 do
+      get forgot_password_users_url, params: { email: user.email }
+      assert_response :success
+    end
+    assert_previous_email "Ain't No Bracket Like It Reset Password", user.email
 
     user.reload
     assert_equal 0, user.reset_password_attempts, 'Should set to 0'
@@ -92,8 +113,10 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   test "should not reset reset_password_token if already set" do
     user = user_with_password_reset_token(attempts: 2)
 
-    get forgot_password_users_url, params: { email: user.email }
-    assert_response :success
+    assert_no_emails do
+      get forgot_password_users_url, params: { email: user.email }
+      assert_response :success
+    end
 
     user.reload
     assert_equal 2, user.reset_password_attempts, 'Should not reset to 0'
@@ -108,14 +131,20 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_nil user.reset_password_attempts, 'reset_password_attempts should be nil since email not found'
     assert_nil user.reset_password_token_digest, 'reset_password_token_digest should be nil since email not found'
   end
+  #----------------Forgot Password-------------------
 
+  #----------------Password Reset-------------------
   test "should reset password with token" do
     user = user_with_password_reset_token
     params = {
       email: user.email, reset_password_token: 'token', new_password: 'new_password', new_password_confirmation: 'new_password'
     }
-    patch reset_password_users_url, params: params
-    assert_response :success
+
+    assert_emails 1 do
+      patch reset_password_users_url, params: params
+      assert_response :success
+    end
+    assert_previous_email "Ain't No Bracket Like It Password Changed", user.email
 
     assert_password_reset_token(user, 'new_password')
   end
@@ -128,8 +157,10 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     params = {
       email: user.email, reset_password_token: 'token', new_password: 'new_password', new_password_confirmation: 'new_password'
     }
-    patch reset_password_users_url, params: params
-    assert_response :unprocessable_entity
+    assert_no_emails do
+      patch reset_password_users_url, params: params
+      assert_response :unprocessable_entity
+    end
 
     assert_not_password_reset_token(user, 'password')
     assert_equal [], parsed_response['errors'].keys, 'should only return these keys'
@@ -153,8 +184,10 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     params = {
       email: user.email, reset_password_token: 'not_token', new_password: 'new_password', new_password_confirmation: 'password'
     }
-    patch reset_password_users_url, params: params
-    assert_response :unprocessable_entity
+    assert_no_emails do
+      patch reset_password_users_url, params: params
+      assert_response :unprocessable_entity
+    end
 
     assert_not_password_reset_token(user, 'password')
 
@@ -162,6 +195,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response_error("doesn't match email", 'reset_password_token')
     assert_equal ['password_confirmation', 'reset_password_token'], parsed_response['errors'].keys, 'should only return these keys'
   end
+  #----------------Password Reset-------------------
 
   def assert_not_password_reset_token(user, old_password, maxed: false)
     attempts = user.reset_password_attempts + 1 unless maxed
@@ -187,7 +221,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     )
     user
   end
-  #----------------Password Reset-------------------
 
   test "should have correct authentication for users_url update" do
     assert_authentication_response(:great_user_and_above) do |current_user|
